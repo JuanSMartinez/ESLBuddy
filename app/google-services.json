@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "346373883915",
+    "firebase_url": "https://eslbuddy-3816d.firebaseio.com",
+    "project_id": "eslbuddy-3816d",
+    "storage_bucket": "eslbuddy-3816d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:346373883915:android:f67a68a159b9077b",
+        "android_client_info": {
+          "package_name": "com.eslbuddy.juanmartinez.eslbuddy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "346373883915-ut7cqpg4p3d4hcq9hlkm4o40glfi491i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.eslbuddy.juanmartinez.eslbuddy",
+            "certificate_hash": "a8444006c45d8fd4228d7b0dec832b9c18d6fd89"
+          }
+        },
+        {
+          "client_id": "346373883915-a6d74ukjjkrk6j0rou4t3ainepfb1iuf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2IoB1rrvo1Ed_u1-cxm2kMOn5rtTY5Eg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "346373883915-a6d74ukjjkrk6j0rou4t3ainepfb1iuf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
