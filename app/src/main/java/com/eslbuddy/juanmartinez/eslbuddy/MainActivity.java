@@ -8,6 +8,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.wear.widget.BoxInsetLayout;
 import android.support.wearable.activity.WearableActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -57,28 +58,31 @@ public class MainActivity extends WearableActivity{
             public boolean onTouch(View v, MotionEvent event) {
 
                 int action = event.getActionMasked();
+
                 switch (action){
+
                     case MotionEvent.ACTION_DOWN:
                         x1 = event.getX();
                         y1 = event.getY();
-                        break;
+                        return v.performClick();
                     case MotionEvent.ACTION_UP:
                         x2 = event.getX();
                         y2 = event.getY();
                         float deltaX = x1-x2;
                         float deltaY = y1-y2;
+
                         if(deltaX >= SWIPE_THRESHOLD && deltaY < SWIPE_THRESHOLD){
-                            Toast.makeText(getApplicationContext(),"Swipe left",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"Swiped left",Toast.LENGTH_SHORT).show();
                         }
                         else if(deltaX < SWIPE_THRESHOLD && deltaY > SWIPE_THRESHOLD){
-                            Toast.makeText(getApplicationContext(),"Swipe up",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"Swiped up",Toast.LENGTH_SHORT).show();
                         }
-                        break;
+                        return true;
                     default:
-                        break;
+                        return true;
                 }
 
-                return v.performClick();
+
             }
         });
     }
