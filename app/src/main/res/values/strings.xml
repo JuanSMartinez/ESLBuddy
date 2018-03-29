@@ -9,4 +9,5 @@
     <string name="title_activity_buddy_list">BuddyListActivity</string>
     <string name="title_activity_recording">RecordingActivity</string>
     <string name="title_activity_saved_recording_pop_up">SavedRecordingActivityPopUp</string>
+    <string name="title_activity_menu">MenuActivity</string>
 </resources>

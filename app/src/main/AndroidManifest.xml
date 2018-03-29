@@ -42,7 +42,10 @@
             android:label="@string/title_activity_recording" />
         <activity
             android:name=".SavedRecordingActivityPopUp"
-            android:label="@string/title_activity_saved_recording_pop_up"></activity>
+            android:label="@string/title_activity_saved_recording_pop_up" />
+        <activity
+            android:name=".MenuActivity"
+            android:label="@string/title_activity_menu"></activity>
     </application>
 
 </manifest>
