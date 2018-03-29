@@ -60,7 +60,7 @@ public class MainActivity extends WearableActivity{
                 int action = event.getActionMasked();
 
                 switch (action){
-
+                    //Message by SangWon
                     case MotionEvent.ACTION_DOWN:
                         x1 = event.getX();
                         y1 = event.getY();
