@@ -4,10 +4,15 @@ import android.os.Bundle;
 import android.support.wear.widget.WearableLinearLayoutManager;
 import android.support.wear.widget.WearableRecyclerView;
 import android.support.wearable.activity.WearableActivity;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import Interfaces.CustomListAdapter;
 import Interfaces.CustomScrollingLayoutCallback;
+import backend.CRUDHelper;
+import backend.Recording;
 
 public class RecentWordsActivity extends WearableActivity {
 
@@ -21,9 +26,10 @@ public class RecentWordsActivity extends WearableActivity {
         mWearableRecyclerView =  findViewById(R.id.recentWordsList);
         mWearableRecyclerView.setEdgeItemsCenteringEnabled(true);
 
-        String[] data = new String[100];
-        for(int i = 0; i < 100; i ++){
-            data[i] = "Data " + i;
+        ArrayList<Recording> recordings = CRUDHelper.getRecordings(getApplicationContext());
+        String[] data = new String[recordings.size()];
+        for(int i = 0; i < recordings.size(); i++){
+            data[i] = recordings.get(i).getRecordedText();
         }
         CustomListAdapter adapter = new CustomListAdapter(data);
         mWearableRecyclerView.setAdapter(adapter);

@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import backend.CRUDHelper;
+
 public class MainActivity extends WearableActivity{
 
     //Recording permission code
@@ -48,6 +50,8 @@ public class MainActivity extends WearableActivity{
 
         // Enables Always-on
         setAmbientEnabled();
+
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
