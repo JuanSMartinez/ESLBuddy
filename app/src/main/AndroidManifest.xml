@@ -45,7 +45,10 @@
             android:label="@string/title_activity_saved_recording_pop_up" />
         <activity
             android:name=".MenuActivity"
-            android:label="@string/title_activity_menu"></activity>
+            android:label="@string/title_activity_menu" />
+        <activity
+            android:name=".RecentWordsActivity"
+            android:label="@string/title_activity_recent_words"></activity>
     </application>
 
 </manifest>

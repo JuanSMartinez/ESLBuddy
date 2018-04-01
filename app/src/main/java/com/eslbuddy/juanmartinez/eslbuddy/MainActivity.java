@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.wear.widget.BoxInsetLayout;
@@ -64,7 +65,10 @@ public class MainActivity extends WearableActivity{
                     case MotionEvent.ACTION_DOWN:
                         x1 = event.getX();
                         y1 = event.getY();
-                        return v.performClick();
+                        //For emulator
+                        return true;
+                        //For real device
+                        //return v.performClick();
                     case MotionEvent.ACTION_UP:
                         x2 = event.getX();
                         y2 = event.getY();
@@ -73,9 +77,11 @@ public class MainActivity extends WearableActivity{
 
                         if(deltaX >= SWIPE_THRESHOLD && deltaY < SWIPE_THRESHOLD){
                             Toast.makeText(getApplicationContext(),"Swiped left",Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), RecentWordsActivity.class);
+                            startActivity(intent);
                         }
                         else if(deltaX < SWIPE_THRESHOLD && deltaY > SWIPE_THRESHOLD){
-                            //Toast.makeText(getApplicationContext(),"Swiped up",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"Swiped up",Toast.LENGTH_SHORT).show();
                             //Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
                             //startActivity(intent);
                         }
