@@ -9,8 +9,7 @@ public class Recording {
     //ID
     private String id;
 
-    //Raw recorded text
-
+    //Raw recorded text and its translation separated by :
     private String recordedText;
 
     /**

@@ -35,15 +35,13 @@ public class RecentWordsActivity extends WearableActivity {
         mWearableRecyclerView.setAdapter(adapter);
 
         mWearableRecyclerView.setCircularScrollingGestureEnabled(true);
-        mWearableRecyclerView.setCircularScrollingGestureEnabled(true);
         mWearableRecyclerView.setBezelFraction(0.5f);
         mWearableRecyclerView.setScrollDegreesPerScreen(90);
 
-        CustomScrollingLayoutCallback customScrollingLayoutCallback = new CustomScrollingLayoutCallback();
-        mWearableRecyclerView.setLayoutManager(new WearableLinearLayoutManager(this, customScrollingLayoutCallback));
-
-
         // Enables Always-on
         setAmbientEnabled();
+
+        CustomScrollingLayoutCallback customScrollingLayoutCallback = new CustomScrollingLayoutCallback();
+        mWearableRecyclerView.setLayoutManager(new WearableLinearLayoutManager(this, customScrollingLayoutCallback));
     }
 }

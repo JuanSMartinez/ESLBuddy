@@ -6,6 +6,7 @@ import android.support.wear.widget.WearableRecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.eslbuddy.juanmartinez.eslbuddy.R;
@@ -26,7 +27,7 @@ public class CustomListAdapter extends WearableRecyclerView.Adapter<CustomListAd
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
 
-        TextView v = (TextView) LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_view, parent, false);
+        LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_view, parent, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
@@ -44,9 +45,9 @@ public class CustomListAdapter extends WearableRecyclerView.Adapter<CustomListAd
     public static class ViewHolder extends WearableRecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView mTextView;
-        public ViewHolder(TextView v) {
+        public ViewHolder(LinearLayout v) {
             super(v);
-            mTextView = v;
+            mTextView = (TextView) v.getChildAt(1);
         }
     }
 
