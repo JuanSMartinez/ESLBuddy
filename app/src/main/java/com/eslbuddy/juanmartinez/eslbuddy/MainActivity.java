@@ -80,7 +80,7 @@ public class MainActivity extends WearableActivity{
                         float deltaY = y1-y2;
 
                         if(deltaX >= SWIPE_THRESHOLD && deltaY < SWIPE_THRESHOLD){
-                            Toast.makeText(getApplicationContext(),"Swiped left",Toast.LENGTH_SHORT).show();
+
                             Intent intent = new Intent(getApplicationContext(), RecentWordsActivity.class);
                             startActivity(intent);
                         }

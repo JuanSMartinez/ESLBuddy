@@ -3,8 +3,14 @@ package backend;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.speech.RecognizerResultsIntent;
+import android.util.Log;
 
+import com.eslbuddy.juanmartinez.eslbuddy.RecentWordsActivity;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 
 
@@ -14,18 +20,22 @@ import java.util.Map;
 
 public class CRUDHelper {
 
+    //Date format for string ids
+    public final static String DATE_FORMAT = "mm-dd-yyyy'T'HH:mm:ss";
+
     //Required CRUD operations for recordings and buddies
     public static String createRecording(String recording, Context context){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
 
-        String id = String.valueOf(System.currentTimeMillis());
+        SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
+        String id = format.format(new Date());
         editor.putString(id, recording);
         editor.commit();
         return id;
     }
 
-
+    //Delete a recording
     public static String deleteRecording(Recording recording, Context context){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
@@ -34,6 +44,7 @@ public class CRUDHelper {
         return recording.getId();
     }
 
+    //Get all the recordings
     public static ArrayList<Recording> getRecordings(Context context){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         ArrayList<Recording> recordings = new ArrayList<>();
@@ -45,6 +56,29 @@ public class CRUDHelper {
             recordings.add(recording);
         }
         return recordings;
+    }
+
+    //Get the most recent Recordings
+    public static ArrayList<Recording> getRecentRecordings(Context context){
+        //Get all the recordings
+        ArrayList<Recording> allRecordings = getRecordings(context);
+
+        //Response array
+        ArrayList<Recording> lastRecordings = new ArrayList<>();
+
+        //Sort the array
+        Sorter sorter = new Sorter();
+        sorter.quickSort(allRecordings, 0, allRecordings.size()-1);
+
+        //Add the latest recordings
+        int j = 0;
+        for(int i = allRecordings.size() -1; i >= 0  && j < RecentWordsActivity.NUMBER_RECENT_WORDS; i--){
+            lastRecordings.add(allRecordings.get(i));
+            j++;
+        }
+
+        return lastRecordings;
+
     }
 
 

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.wear.widget.WearableLinearLayoutManager;
 import android.support.wear.widget.WearableRecyclerView;
 import android.support.wearable.activity.WearableActivity;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -16,6 +17,10 @@ import backend.Recording;
 
 public class RecentWordsActivity extends WearableActivity {
 
+    //Number of recent words to display
+    public final static int NUMBER_RECENT_WORDS = 30;
+
+    //Recycler view for circular layout
     private WearableRecyclerView mWearableRecyclerView;
 
     @Override
@@ -26,10 +31,18 @@ public class RecentWordsActivity extends WearableActivity {
         mWearableRecyclerView =  findViewById(R.id.recentWordsList);
         mWearableRecyclerView.setEdgeItemsCenteringEnabled(true);
 
-        ArrayList<Recording> recordings = CRUDHelper.getRecordings(getApplicationContext());
-        String[] data = new String[recordings.size()];
-        for(int i = 0; i < recordings.size(); i++){
-            data[i] = recordings.get(i).getRecordedText();
+        ArrayList<Recording> recordings = CRUDHelper.getRecentRecordings(getApplicationContext());
+        String[] data;
+        if(recordings.size() == 0){
+            data = new String[1];
+            data[0] = "No Recordings";
+        }
+        else {
+            data = new String[recordings.size()];
+            for (int i = 0; i < recordings.size(); i++) {
+                Recording recording = recordings.get(i);
+                data[i] = recording.getRecordedText().split(":")[0];
+            }
         }
         CustomListAdapter adapter = new CustomListAdapter(data);
         mWearableRecyclerView.setAdapter(adapter);

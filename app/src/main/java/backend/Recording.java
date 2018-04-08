@@ -1,10 +1,19 @@
 package backend;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
+import android.widget.Toast;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by juanmartinez on 3/20/18.
  */
 
-public class Recording {
+public class Recording implements Comparable<Recording>{
+
 
     //ID
     private String id;
@@ -54,5 +63,20 @@ public class Recording {
      */
     public void setRecordedText(String recordedText) {
         this.recordedText = recordedText;
+    }
+
+    @Override
+    public int compareTo(@NonNull Recording o){
+        SimpleDateFormat format = new SimpleDateFormat(CRUDHelper.DATE_FORMAT);
+        try{
+            Date myDate = format.parse(id);
+            Date otherDate = format.parse(o.getId());
+            return myDate.compareTo(otherDate);
+        }
+        catch (ParseException e) {
+            e.printStackTrace();
+            return id.compareTo(o.getId());
+        }
+
     }
 }
