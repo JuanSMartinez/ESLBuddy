@@ -48,7 +48,7 @@
             android:label="@string/title_activity_menu" />
         <activity
             android:name=".RecentWordsActivity"
-            android:label="@string/title_activity_recent_words"></activity>
+            android:label="@string/title_activity_recent_words"/>
     </application>
 
 </manifest>

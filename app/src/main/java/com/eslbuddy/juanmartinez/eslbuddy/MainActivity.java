@@ -85,9 +85,9 @@ public class MainActivity extends WearableActivity{
                             startActivity(intent);
                         }
                         else if(deltaX < SWIPE_THRESHOLD && deltaY > SWIPE_THRESHOLD){
-                            Toast.makeText(getApplicationContext(),"Swiped up",Toast.LENGTH_SHORT).show();
-                            //Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
-                            //startActivity(intent);
+                            //Toast.makeText(getApplicationContext(),"Swiped up",Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                            startActivity(intent);
                         }
                         return true;
                     default:
