@@ -81,5 +81,17 @@ public class CRUDHelper {
 
     }
 
+    //Save a recording id as a wrong recording from a quiz
+    public static String saveRecordingAsWrong(Context context, String wrongRecordingId){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
+        String id = String.valueOf(System.currentTimeMillis());
+        editor.putString(id, wrongRecordingId);
+        editor.commit();
+        return id;
+    }
+
 
 }

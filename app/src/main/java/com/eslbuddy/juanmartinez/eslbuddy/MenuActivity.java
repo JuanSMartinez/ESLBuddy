@@ -1,7 +1,9 @@
 package com.eslbuddy.juanmartinez.eslbuddy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.activity.WearableActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -30,7 +32,8 @@ public class MenuActivity extends WearableActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(v.getContext(), SettingsActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -11,4 +11,7 @@
     <string name="title_activity_saved_recording_pop_up">SavedRecordingActivityPopUp</string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="title_activity_recent_words">RecentWordsActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_language_setup">LanguageSetupActivity</string>
+    <string name="title_activity_language_selection">LanguageSelectionActivity</string>
 </resources>

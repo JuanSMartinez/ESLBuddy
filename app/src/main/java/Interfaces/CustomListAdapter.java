@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.wear.widget.WearableRecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,9 +19,13 @@ public class CustomListAdapter extends WearableRecyclerView.Adapter<CustomListAd
     //Simple data as array of strings
     private String[] dataSet;
 
+    //Click listener
+    private CircularViewClickListener listener;
+
     //Constructor
-    public CustomListAdapter(String[] data){
+    public CustomListAdapter(String[] data, CircularViewClickListener listener){
         this.dataSet = data;
+        this.listener = listener;
     }
 
     @Override
@@ -28,7 +33,7 @@ public class CustomListAdapter extends WearableRecyclerView.Adapter<CustomListAd
         // create a new view
 
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_view, parent, false);
-        ViewHolder vh = new ViewHolder(v);
+        ViewHolder vh = new ViewHolder(v, listener);
         return vh;
     }
 
@@ -45,9 +50,15 @@ public class CustomListAdapter extends WearableRecyclerView.Adapter<CustomListAd
     public static class ViewHolder extends WearableRecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView mTextView;
-        public ViewHolder(LinearLayout v) {
+        public ViewHolder(LinearLayout v, final CircularViewClickListener listener) {
             super(v);
             mTextView = (TextView) v.getChildAt(1);
+            mTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onClickListItem(mTextView.getText().toString());
+                }
+            });
         }
     }
 

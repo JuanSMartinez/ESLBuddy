@@ -24,17 +24,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import backend.YandexAPIManager;
+
 public class RecordingActivity extends WearableActivity {
-
-
-    //API Key for the yandex translate service
-    public final static String YANDEX_API_KEY = "trnsl.1.1.20180321T150021Z.8dfd187831b0fa28.cab54001c0f043c3f9609188ac21e061460079ec";
-
-    //Recorded text string key
-    public final static String RECORDED_TEXT = "Recorded Text";
-
-    //Translated text string key
-    public final static String TRANSLATED_TEXT = "Translated Text";
 
     //Request queue for HTTP requests
     private RequestQueue queue;
@@ -107,11 +99,8 @@ public class RecordingActivity extends WearableActivity {
      * Get translated text from a recorded text
      */
     private void translateText(final String text){
-        //TODO: korean language for testing only
-        String url = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=" +
-                YANDEX_API_KEY +
-                "&text="+text +
-                "&lang=en-ko";
+
+        String url = YandexAPIManager.getInstance(getApplicationContext()).getURLRequest(text);
 
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -146,8 +135,8 @@ public class RecordingActivity extends WearableActivity {
      */
     private void startRecordedTextActivity(String recordedText, String translation){
         Intent intent = new Intent(getApplicationContext(), RecordedTextActivity.class);
-        intent.putExtra(RECORDED_TEXT, recordedText);
-        intent.putExtra(TRANSLATED_TEXT, translation);
+        intent.putExtra(YandexAPIManager.RECORDED_TEXT, recordedText);
+        intent.putExtra(YandexAPIManager.TRANSLATED_TEXT, translation);
 
         startActivity(intent);
         finish();

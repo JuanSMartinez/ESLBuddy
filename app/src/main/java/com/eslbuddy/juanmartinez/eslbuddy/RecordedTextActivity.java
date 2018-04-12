@@ -14,6 +14,7 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 import backend.CRUDHelper;
+import backend.YandexAPIManager;
 
 public class RecordedTextActivity extends WearableActivity {
 
@@ -27,8 +28,8 @@ public class RecordedTextActivity extends WearableActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recorded_text);
 
-        String recordedText = getIntent().getStringExtra(RecordingActivity.RECORDED_TEXT);
-        String translatedText = getIntent().getStringExtra(RecordingActivity.TRANSLATED_TEXT);
+        String recordedText = getIntent().getStringExtra(YandexAPIManager.RECORDED_TEXT);
+        String translatedText = getIntent().getStringExtra(YandexAPIManager.TRANSLATED_TEXT);
 
         recordedTextView = findViewById(R.id.recordedTextView);
         translatedTextView = findViewById(R.id.translatedTextView);

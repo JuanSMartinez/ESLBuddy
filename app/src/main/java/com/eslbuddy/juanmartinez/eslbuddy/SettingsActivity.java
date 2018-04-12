@@ -1,22 +1,18 @@
 package com.eslbuddy.juanmartinez.eslbuddy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.wear.widget.WearableLinearLayoutManager;
 import android.support.wear.widget.WearableRecyclerView;
 import android.support.wearable.activity.WearableActivity;
-
-import java.util.ArrayList;
+import android.util.Log;
+import android.widget.TextView;
 
 import Interfaces.CircularViewClickListener;
 import Interfaces.CustomListAdapter;
 import Interfaces.CustomScrollingLayoutCallback;
-import backend.CRUDHelper;
-import backend.Recording;
 
-public class RecentWordsActivity extends WearableActivity implements CircularViewClickListener {
-
-    //Number of recent words to display
-    public final static int NUMBER_RECENT_WORDS = 30;
+public class SettingsActivity extends WearableActivity implements CircularViewClickListener{
 
     //Recycler view for circular layout
     private WearableRecyclerView mWearableRecyclerView;
@@ -24,24 +20,12 @@ public class RecentWordsActivity extends WearableActivity implements CircularVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recent_words);
+        setContentView(R.layout.activity_settings);
 
-        mWearableRecyclerView =  findViewById(R.id.recentWordsList);
+        mWearableRecyclerView = findViewById(R.id.settingsActivityLayout);
         mWearableRecyclerView.setEdgeItemsCenteringEnabled(true);
 
-        ArrayList<Recording> recordings = CRUDHelper.getRecentRecordings(getApplicationContext());
-        String[] data;
-        if(recordings.size() == 0){
-            data = new String[1];
-            data[0] = "No Recordings";
-        }
-        else {
-            data = new String[recordings.size()];
-            for (int i = 0; i < recordings.size(); i++) {
-                Recording recording = recordings.get(i);
-                data[i] = recording.getRecordedText().split(":")[0];
-            }
-        }
+        String[] data = {"Language", "TTS"};
         CustomListAdapter adapter = new CustomListAdapter(data, this);
         mWearableRecyclerView.setAdapter(adapter);
 
@@ -58,6 +42,9 @@ public class RecentWordsActivity extends WearableActivity implements CircularVie
 
     @Override
     public void onClickListItem(String textInView) {
-
+        if(textInView.equals("Language")){
+            Intent intent = new Intent(getApplicationContext(), LanguageSetupActivity.class);
+            startActivity(intent);
+        }
     }
 }
