@@ -61,7 +61,7 @@ public class MainActivity extends WearableActivity{
         //TODO: REMOVE: SOME EXAMPLE RECORDINGS FOR TESTING ONLY
         CRUDHelper.deleteAllRecordings(this);
         CRUDHelper.createRecording("Recording 1:Grabacion 1", this);
-        CRUDHelper.createRecording("Recording 2:Grabacion 2", this);
+
 
     }
 

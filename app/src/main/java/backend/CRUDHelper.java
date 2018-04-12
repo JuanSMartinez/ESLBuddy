@@ -30,8 +30,10 @@ public class CRUDHelper {
 
         //No repeated recordings are added, even if the translation text has changed
         if(getRecordingFromOriginText(context, recording.split(":")[0]) == null) {
+
             SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
             String id = format.format(new Date());
+
             editor.putString(id, recording);
             editor.commit();
             return id;
@@ -68,6 +70,7 @@ public class CRUDHelper {
         //Get all the recordings
         ArrayList<Recording> allRecordings = getRecordings(context);
 
+
         //Response array
         ArrayList<Recording> lastRecordings = new ArrayList<>();
 
@@ -80,6 +83,7 @@ public class CRUDHelper {
         for(int i = allRecordings.size() -1; i >= 0  && j < RecentWordsActivity.NUMBER_RECENT_WORDS; i--){
             lastRecordings.add(allRecordings.get(i));
             j++;
+
         }
 
         return lastRecordings;

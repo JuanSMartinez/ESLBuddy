@@ -1,13 +1,17 @@
 package com.eslbuddy.juanmartinez.eslbuddy;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.wearable.activity.WearableActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.Locale;
 
+import backend.TTSManager;
 import backend.YandexAPIManager;
 
 public class ReviewRecordingActivity extends WearableActivity implements TextToSpeech.OnInitListener {
@@ -21,6 +25,9 @@ public class ReviewRecordingActivity extends WearableActivity implements TextToS
 
     //Text view
     private TextView displayTextView;
+
+    //Switch between words
+    private Switch switchWords;
 
     //recorded text
     private String recordedText;
@@ -46,6 +53,26 @@ public class ReviewRecordingActivity extends WearableActivity implements TextToS
 
         displayTextView.setText(recordedText);
         tts = new TextToSpeech(getApplicationContext(), this);
+
+        switchWords = findViewById(R.id.switchTextReviewed);
+
+        switchWords.setChecked(false);
+        switchWords.setText("Original Word");
+        switchWords.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(switchWords.isChecked()) {
+                    speakTranslation();
+                    displayTextView.setText(translation);
+                    switchWords.setText("Translation");
+                }
+                else {
+                    speakRecording();
+                    displayTextView.setText(recordedText);
+                    switchWords.setText("Original Word");
+                }
+            }
+        });
         // Enables Always-on
         setAmbientEnabled();
     }
@@ -56,7 +83,7 @@ public class ReviewRecordingActivity extends WearableActivity implements TextToS
         if(status == TextToSpeech.SUCCESS){
             //Play the recorded text
             ttsReady = true;
-            speakTranslation();
+            speakRecording();
         }
         else{
             Log.d("Debug:", "Error in status for TTS");
@@ -64,15 +91,16 @@ public class ReviewRecordingActivity extends WearableActivity implements TextToS
     }
 
     private void speakRecording(){
-        if (ttsReady){
+        if (ttsReady && TTSManager.getInstance().isOn()){
             Locale closest = Locale.forLanguageTag(YandexAPIManager.getInstance(getApplicationContext()).getOriginCode());
             tts.setLanguage(closest);
             tts.speak(recordedText, TextToSpeech.QUEUE_FLUSH, null, UID);
+
         }
     }
 
     private void speakTranslation(){
-        if(ttsReady){
+        if(ttsReady && TTSManager.getInstance().isOn()){
             Locale closest = Locale.forLanguageTag(YandexAPIManager.getInstance(getApplicationContext()).getTranslationCode());
             tts.setLanguage(closest);
             tts.speak(translation, TextToSpeech.QUEUE_FLUSH, null, UID);
