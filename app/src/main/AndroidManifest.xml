@@ -67,6 +67,9 @@
         <activity
             android:name=".TTSSettingActivity"
             android:label="@string/title_activity_ttssetting" />
+        <activity
+            android:name=".ReviewRecordingActivity"
+            android:label="@string/title_activity_review_recording"></activity>
     </application>
 
 </manifest>

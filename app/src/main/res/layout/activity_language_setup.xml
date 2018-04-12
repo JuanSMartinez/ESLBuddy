@@ -16,12 +16,15 @@
         app:boxedEdges="all">
 
         <TextView
+            android:id="@+id/languageInputTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/languageInputTitle"
-            android:textColor="@color/black"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:text="Input"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="22sp" />
 
         <TextView
             android:id="@+id/inputLanguageText"
@@ -29,21 +32,22 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="28dp"
             android:text="English"
             android:textAlignment="center"
-            android:textColor="@color/dark_blue" />
+            android:textColor="@color/dark_blue"
+            android:textSize="22sp" />
 
         <TextView
             android:id="@+id/languageOutputTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_above="@+id/outputLanguageText"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="46dp"
             android:text="Output"
             android:textAlignment="center"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="22sp" />
 
         <TextView
             android:id="@+id/outputLanguageText"
@@ -51,10 +55,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="13dp"
             android:text="Korean"
             android:textAlignment="center"
-            android:textColor="@color/dark_blue" />
+            android:textColor="@color/dark_blue"
+            android:textSize="22sp" />
 
     </RelativeLayout>
 </android.support.wear.widget.BoxInsetLayout>

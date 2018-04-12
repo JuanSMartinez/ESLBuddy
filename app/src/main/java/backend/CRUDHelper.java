@@ -28,11 +28,16 @@ public class CRUDHelper {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
 
-        SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
-        String id = format.format(new Date());
-        editor.putString(id, recording);
-        editor.commit();
-        return id;
+        //No repeated recordings are added, even if the translation text has changed
+        if(getRecordingFromOriginText(context, recording.split(":")[0]) == null) {
+            SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
+            String id = format.format(new Date());
+            editor.putString(id, recording);
+            editor.commit();
+            return id;
+        }
+        else
+            return null;
     }
 
     //Delete a recording
@@ -86,11 +91,31 @@ public class CRUDHelper {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
 
-        SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
         String id = String.valueOf(System.currentTimeMillis());
         editor.putString(id, wrongRecordingId);
         editor.commit();
         return id;
+    }
+
+    //Get a recording from an origin text
+    public static Recording getRecordingFromOriginText(Context context, String text){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        Map<String, ?> key = preferences.getAll();
+        for(Map.Entry<String, ?> entry : key.entrySet()){
+            String recordingText = (String)entry.getValue();
+            String id = entry.getKey();
+            if(text.equals(recordingText.split(":")[0]))
+                return new Recording(id, recordingText);
+        }
+        return null;
+    }
+
+    //Delete all recordings
+    public static void deleteAllRecordings(Context context){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.commit();
     }
 
 

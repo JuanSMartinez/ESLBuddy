@@ -1,5 +1,6 @@
 package com.eslbuddy.juanmartinez.eslbuddy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.wear.widget.WearableLinearLayoutManager;
 import android.support.wear.widget.WearableRecyclerView;
@@ -58,6 +59,13 @@ public class RecentWordsActivity extends WearableActivity implements CircularVie
 
     @Override
     public void onClickListItem(String textInView) {
-
+        Intent intent = new Intent(getApplicationContext(), ReviewRecordingActivity.class);
+        Recording recording = CRUDHelper.getRecordingFromOriginText(getApplicationContext(), textInView);
+        if(recording != null){
+            String[] data = recording.getRecordedText().split(":");
+            intent.putExtra(ReviewRecordingActivity.RECORDED_TEXT, data[0]);
+            intent.putExtra(ReviewRecordingActivity.TRANSLATION, data[1]);
+            startActivity(intent);
+        }
     }
 }

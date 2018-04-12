@@ -12,6 +12,7 @@ import android.support.wearable.activity.WearableActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -38,11 +39,17 @@ public class MainActivity extends WearableActivity{
 
 
         ImageButton recordButton = findViewById(R.id.recordButton);
+        //Button recordButton = findViewById(R.id.recordButton);
         recordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), RecordingActivity.class);
-                startActivity(intent);
+                if(checkRecordingPermission()) {
+                    Intent intent = new Intent(getApplicationContext(), RecordingActivity.class);
+                    startActivity(intent);
+                }
+                else{
+                    requestRecordingPermission();
+                }
             }
         });
 
@@ -51,6 +58,10 @@ public class MainActivity extends WearableActivity{
         // Enables Always-on
         setAmbientEnabled();
 
+        //TODO: REMOVE: SOME EXAMPLE RECORDINGS FOR TESTING ONLY
+        CRUDHelper.deleteAllRecordings(this);
+        CRUDHelper.createRecording("Recording 1:Grabacion 1", this);
+        CRUDHelper.createRecording("Recording 2:Grabacion 2", this);
 
     }
 
@@ -69,10 +80,9 @@ public class MainActivity extends WearableActivity{
                     case MotionEvent.ACTION_DOWN:
                         x1 = event.getX();
                         y1 = event.getY();
-                        //For emulator
+
                         return true;
-                        //For real device
-                        //return v.performClick();
+
                     case MotionEvent.ACTION_UP:
                         x2 = event.getX();
                         y2 = event.getY();
@@ -114,10 +124,10 @@ public class MainActivity extends WearableActivity{
     }
 
     private void requestRecordingPermission(){
-        while(!checkRecordingPermission()){
+        //while(!checkRecordingPermission()){
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.RECORD_AUDIO},
                     SPEECH_RECORDING_PERMISSION);
-        }
+        //}
     }
 
 
