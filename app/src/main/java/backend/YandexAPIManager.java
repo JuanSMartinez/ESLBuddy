@@ -15,7 +15,7 @@ import java.util.Map;
 public class YandexAPIManager {
 
     //API Key for the yandex translate service
-    public final static String YANDEX_API_KEY = "trnsl.1.1.20180321T150021Z.8dfd187831b0fa28.cab54001c0f043c3f9609188ac21e061460079ec";
+    private final static String YANDEX_API_KEY = "trnsl.1.1.20180321T150021Z.8dfd187831b0fa28.cab54001c0f043c3f9609188ac21e061460079ec";
 
     //Recorded text string key
     public final static String RECORDED_TEXT = "Recorded Text";
@@ -45,7 +45,7 @@ public class YandexAPIManager {
         return instance;
     }
 
-    public YandexAPIManager(Context context){
+    private YandexAPIManager(Context context){
 
         languageCodes = new ArrayList<>();
         languages = new ArrayList<>();
@@ -58,7 +58,6 @@ public class YandexAPIManager {
             BufferedReader reader = new BufferedReader(new InputStreamReader(in,"UTF-8"));
             String line = reader.readLine();
             while(line != null){
-                Log.d("Debug:", line);
                 String[] data = line.split(",");
                 languages.add(data[0]);
                 languageCodes.add(data[1]);
@@ -71,11 +70,11 @@ public class YandexAPIManager {
     }
 
     public String getURLRequest(String text){
-        String url = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=" +
+
+        return  "https://translate.yandex.net/api/v1.5/tr.json/translate?key=" +
                 YandexAPIManager.YANDEX_API_KEY +
                 "&text="+text +
                 "&lang="+originCode+"-"+translationCode;
-        return  url;
     }
 
     public void setOriginLanguage(String language){

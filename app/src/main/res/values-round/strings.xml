@@ -1,6 +1,8 @@
 <resources>
     <string name="hello_world">Hello Round World!</string>
     <string name="record_label">Tap to Record</string>
-    <string name="recording_label">Recording...</string>
+    <string name="recording_label">Recording&#8230;</string>
     <string name="saved_label">Saved</string>
+    <string name="tts_label">Text to Speech</string>
+    <string name="stop_button_desc">Stop Button</string>
 </resources>

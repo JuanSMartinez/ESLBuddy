@@ -47,5 +47,9 @@ public class SettingsActivity extends WearableActivity implements CircularViewCl
             Intent intent = new Intent(getApplicationContext(), LanguageSetupActivity.class);
             startActivity(intent);
         }
+        else if(textInView.equals("TTS")){
+            Intent intent = new Intent(getApplicationContext(), TTSSettingActivity.class);
+            startActivity(intent);
+        }
     }
 }

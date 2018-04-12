@@ -63,7 +63,10 @@
         </activity>
         <activity
             android:name=".LanguageSelectionActivity"
-            android:label="@string/title_activity_language_selection"></activity>
+            android:label="@string/title_activity_language_selection" />
+        <activity
+            android:name=".TTSSettingActivity"
+            android:label="@string/title_activity_ttssetting" />
     </application>
 
 </manifest>

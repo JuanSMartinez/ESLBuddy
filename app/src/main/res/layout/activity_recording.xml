@@ -18,6 +18,7 @@
 
         <ImageButton
             android:id="@+id/stopButton"
+            android:contentDescription="@string/stop_button_desc"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentTop="true"
@@ -43,27 +44,13 @@
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/imageView"
+            android:layout_below="@+id/textView"
             android:gravity="center"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="500dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/textView"
-            android:src="@drawable/black_line" />
 
-        <!--<Button
-            android:id="@+id/stopButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/red_square"
-            android:text="Button" />-->
+
 
     </RelativeLayout>
 </android.support.wear.widget.BoxInsetLayout>
