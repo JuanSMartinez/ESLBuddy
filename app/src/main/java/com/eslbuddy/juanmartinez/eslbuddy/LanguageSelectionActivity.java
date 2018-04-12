@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.wear.widget.WearableLinearLayoutManager;
 import android.support.wear.widget.WearableRecyclerView;
 import android.support.wearable.activity.WearableActivity;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -45,5 +46,12 @@ public class LanguageSelectionActivity extends WearableActivity implements Circu
     @Override
     public void onClickListItem(String textInView) {
 
+        int type = getIntent().getIntExtra(LanguageSetupActivity.TYPE, 0);
+        if (type == LanguageSetupActivity.INPUT)
+            YandexAPIManager.getInstance(getApplicationContext()).setOriginLanguage(textInView);
+        else if(type == LanguageSetupActivity.OUTPUT)
+            YandexAPIManager.getInstance(getApplicationContext()).setTranslationLanguage(textInView);
+
+        finish();
     }
 }

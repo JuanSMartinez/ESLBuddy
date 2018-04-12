@@ -14,6 +14,7 @@ import Interfaces.CustomScrollingLayoutCallback;
 
 public class SettingsActivity extends WearableActivity implements CircularViewClickListener{
 
+
     //Recycler view for circular layout
     private WearableRecyclerView mWearableRecyclerView;
 

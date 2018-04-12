@@ -31,6 +31,10 @@ public class YandexAPIManager {
     private String originCode = "en";
     private String translationCode = "ko";
 
+    //Selected languages
+    private String originLanguage = "English";
+    private String translationLanguage = "Korean";
+
     //Singleton
     private static YandexAPIManager instance = null;
 
@@ -74,19 +78,45 @@ public class YandexAPIManager {
         return  url;
     }
 
-    public void setOriginCode(String newCode){
+    public void setOriginLanguage(String language){
+        originLanguage = language;
+        for(int i = 0; i < languages.size(); i++){
+            if(languages.get(i).equals(language)){
+                String code = languageCodes.get(i);
+                setOriginCode(code);
+                break;
+            }
+        }
+    }
+
+    public void setTranslationLanguage(String language){
+        translationLanguage = language;
+        for(int i = 0; i < languages.size(); i++){
+            if(languages.get(i).equals(language)){
+                String code = languageCodes.get(i);
+                setTranslationCode(code);
+                break;
+            }
+        }
+    }
+
+    private void setOriginCode(String newCode){
         originCode = newCode;
     }
 
-    public void setTranslationCode(String newTranslationCode){
+    private void setTranslationCode(String newTranslationCode){
         translationCode = newTranslationCode;
-    }
-
-    public ArrayList<String> getLanguageCodes() {
-        return languageCodes;
     }
 
     public ArrayList<String> getLanguages() {
         return languages;
+    }
+
+    public String getOriginLanguage(){
+        return originLanguage;
+    }
+
+    public String getTranslationLanguage(){
+        return translationLanguage;
     }
 }
