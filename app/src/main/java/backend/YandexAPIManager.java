@@ -29,11 +29,11 @@ public class YandexAPIManager {
 
     //Selected language codes
     private String originCode = "en";
-    private String translationCode = "es";
+    private String translationCode = "ko";
 
     //Selected languages
     private String originLanguage = "English";
-    private String translationLanguage = "Spanish";
+    private String translationLanguage = "Korean";
 
     //Singleton
     private static YandexAPIManager instance = null;

@@ -1,6 +1,6 @@
 package backend;
 
-public class TTSManager {
+public class TTSManager{
 
     //Instance
     private static TTSManager instance = null;
