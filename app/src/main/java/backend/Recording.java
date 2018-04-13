@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,7 +13,7 @@ import java.util.Date;
  * Created by juanmartinez on 3/20/18.
  */
 
-public class Recording implements Comparable<Recording>{
+public class Recording implements Comparable<Recording>, Serializable{
 
 
     //ID

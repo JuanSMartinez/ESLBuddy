@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Debug;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.wear.widget.BoxInsetLayout;
@@ -12,11 +11,12 @@ import android.support.wearable.activity.WearableActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import backend.CRUDHelper;
+import backend.Recording;
 
 public class MainActivity extends WearableActivity{
 
@@ -60,7 +60,7 @@ public class MainActivity extends WearableActivity{
 
         //TODO: REMOVE: SOME EXAMPLE RECORDINGS FOR TESTING ONLY
         CRUDHelper.deleteAllRecordings(this);
-        //CRUDHelper.createRecording("Recording 1:Grabacion 1", this);
+        CRUDHelper.createRecording("Recording 1:Grabacion 1", this);
 
 
     }
@@ -90,8 +90,10 @@ public class MainActivity extends WearableActivity{
                         float deltaY = y1-y2;
 
                         if(deltaX >= SWIPE_THRESHOLD && deltaY < SWIPE_THRESHOLD){
+                            ArrayList<Recording> recent = CRUDHelper.getRecentRecordings(getApplicationContext());
 
-                            Intent intent = new Intent(getApplicationContext(), RecentWordsActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), ListOfWordsActivity.class);
+                            intent.putExtra(ListOfWordsActivity.LIST, recent);
                             startActivity(intent);
                         }
                         else if(deltaX < SWIPE_THRESHOLD && deltaY > SWIPE_THRESHOLD){

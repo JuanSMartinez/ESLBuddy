@@ -14,10 +14,10 @@ import Interfaces.CustomScrollingLayoutCallback;
 import backend.CRUDHelper;
 import backend.Recording;
 
-public class RecentWordsActivity extends WearableActivity implements CircularViewClickListener {
+public class ListOfWordsActivity extends WearableActivity implements CircularViewClickListener {
 
-    //Number of recent words to display
-    public final static int NUMBER_RECENT_WORDS = 30;
+    //Identifier for the list
+    public final static String LIST = "List";
 
     //Recycler view for circular layout
     private WearableRecyclerView mWearableRecyclerView;
@@ -25,12 +25,12 @@ public class RecentWordsActivity extends WearableActivity implements CircularVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recent_words);
+        setContentView(R.layout.activity_list_of_words);
 
-        mWearableRecyclerView =  findViewById(R.id.recentWordsList);
+        mWearableRecyclerView =  findViewById(R.id.wordsList);
         mWearableRecyclerView.setEdgeItemsCenteringEnabled(true);
 
-        ArrayList<Recording> recordings = CRUDHelper.getRecentRecordings(getApplicationContext());
+        ArrayList<Recording> recordings = (ArrayList<Recording>) getIntent().getSerializableExtra(LIST);
         String[] data;
         if(recordings.size() == 0){
             data = new String[1];

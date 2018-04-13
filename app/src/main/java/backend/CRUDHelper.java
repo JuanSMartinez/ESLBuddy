@@ -3,10 +3,8 @@ package backend;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.speech.RecognizerResultsIntent;
-import android.util.Log;
 
-import com.eslbuddy.juanmartinez.eslbuddy.RecentWordsActivity;
+import com.eslbuddy.juanmartinez.eslbuddy.ListOfWordsActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,6 +20,9 @@ public class CRUDHelper {
 
     //Date format for string ids
     public final static String DATE_FORMAT = "mm-dd-yyyy'T'HH:mm:ss";
+
+    //Maximum of words in special lists
+    public final static int MAX_WORDS = 30;
 
     //Required CRUD operations for recordings and buddies
     public static String createRecording(String recording, Context context){
@@ -58,7 +59,7 @@ public class CRUDHelper {
         Map<String, ?> key = preferences.getAll();
         for(Map.Entry<String, ?> entry : key.entrySet()){
             String recordingText = (String)entry.getValue();
-            //Check if the saved string is a recording or the id of a wrong answer in a quizz
+            //Check if the saved string is a recording or the id of a wrong answer in a quiz
             if(recordingText.split(":").length == 2) {
                 String id = entry.getKey();
                 Recording recording = new Recording(id, recordingText);
@@ -83,7 +84,7 @@ public class CRUDHelper {
 
         //Add the latest recordings
         int j = 0;
-        for(int i = allRecordings.size() -1; i >= 0  && j < RecentWordsActivity.NUMBER_RECENT_WORDS; i--){
+        for(int i = allRecordings.size() -1; i >= 0  && j < MAX_WORDS; i--){
             lastRecordings.add(allRecordings.get(i));
             j++;
 
@@ -168,6 +169,24 @@ public class CRUDHelper {
         SharedPreferences.Editor editor = preferences.edit();
         editor.clear();
         editor.commit();
+    }
+
+    //Get a random set of recordings
+    public static ArrayList<Recording> getRandomRecordings(Context context){
+        //All recordings
+        ArrayList<Recording> all = getRecordings(context);
+        ArrayList<Recording> response = new ArrayList<>();
+        int amount = Math.min(all.size(), MAX_WORDS);
+        for(int i = 0 ; i < amount; i++){
+            int index = (int)Math.random()*all.size();
+            Recording random = all.get(index);
+            while (response.indexOf(random) != -1){
+                index = (int)Math.random()*all.size();
+                random = all.get(index);
+            }
+            response.add(random);
+        }
+        return response;
     }
 
 
