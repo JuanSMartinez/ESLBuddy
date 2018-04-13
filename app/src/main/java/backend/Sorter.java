@@ -33,4 +33,15 @@ public class Sorter<T extends Comparable<T>> {
             quickSort(array, q+1, r);
         }
     }
+
+    //Shuffle an array with the fisher-yates shuffle algorithm
+    public void shuffleArray(ArrayList<T> array){
+        for(int i = 0; i < array.size()-2; i ++){
+            int j = (int)Math.random()*(array.size() - i) + i;
+            T temp = array.get(i);
+            array.add(i, array.get(j));
+            array.add(j, temp);
+        }
+    }
+
 }

@@ -29,16 +29,18 @@ public class LanguageSetupActivity extends WearableActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language_setup);
 
+        //This should not be subject to change, always English
         inputTextView = findViewById(R.id.inputLanguageText);
         inputTextView.setText(YandexAPIManager.getInstance(getApplicationContext()).getOriginLanguage());
-        inputTextView.setOnClickListener(new View.OnClickListener() {
+        /*inputTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(getApplicationContext(), LanguageSelectionActivity.class);
                 intent.putExtra(TYPE, INPUT);
                 startActivity(intent);
             }
-        });
+        });*/
 
         outputTextView = findViewById(R.id.outputLanguageText);
         outputTextView.setText(YandexAPIManager.getInstance(getApplicationContext()).getTranslationLanguage());

@@ -27,7 +27,7 @@ public class MenuWordsActivity extends WearableActivity implements CircularViewC
     //Identifiers to the type of activity to be launched when selecting a list
     public final static String TYPE = "Type";
     public final static int REVIEW = 0;
-    public final static int QUIZ_LIST = 1;
+    public final static int QUIZ = 1;
 
     //Recycler view for circular layout
     private WearableRecyclerView mWearableRecyclerView;

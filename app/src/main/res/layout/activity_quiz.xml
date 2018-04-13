@@ -4,22 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_grey"
+    android:background="@color/white"
     android:padding="@dimen/box_inset_layout_padding"
     tools:context=".QuizActivity"
     tools:deviceIds="wear">
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/inner_frame_layout_padding"
         app:boxedEdges="all">
 
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hello_world" />
 
-    </FrameLayout>
+        <TextView
+            android:id="@+id/textViewQuizRecording"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:textSize="28sp"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/recordedTextQuiz"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/micButton"
+            android:layout_alignParentStart="true"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="22sp" />
+
+        <ImageButton
+            android:id="@+id/micButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/mic_icon" />
+    </RelativeLayout>
 </android.support.wear.widget.BoxInsetLayout>
