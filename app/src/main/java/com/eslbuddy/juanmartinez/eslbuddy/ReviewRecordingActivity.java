@@ -96,7 +96,7 @@ public class ReviewRecordingActivity extends WearableActivity {
 
     private void speakRecording(){
         if (ttsSpeakerOrigin.isInitialized() && TTSManager.getInstance().isOn()){
-            Log.d("Debug", "Initialized");
+
             ttsSpeakerOrigin.speakText(recordedText);
         }
         else
@@ -105,7 +105,7 @@ public class ReviewRecordingActivity extends WearableActivity {
 
     private void speakTranslation(){
         if (ttsSpeakerTranslation.isInitialized() && TTSManager.getInstance().isOn()){
-            Log.d("Debug", "Initialized");
+
             ttsSpeakerTranslation.speakText(translation);
         }
         else

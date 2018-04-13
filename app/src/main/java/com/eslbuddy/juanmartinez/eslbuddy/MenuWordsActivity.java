@@ -24,6 +24,11 @@ public class MenuWordsActivity extends WearableActivity implements CircularViewC
     public final static String RANDOM = "Random";
     public final static String ALL = "All";
 
+    //Identifiers to the type of activity to be launched when selecting a list
+    public final static String TYPE = "Type";
+    public final static int REVIEW = 0;
+    public final static int QUIZ_LIST = 1;
+
     //Recycler view for circular layout
     private WearableRecyclerView mWearableRecyclerView;
 
@@ -41,6 +46,9 @@ public class MenuWordsActivity extends WearableActivity implements CircularViewC
     //Random recordings
     private ArrayList<Recording> randomRecordings;
 
+    //Type of activity to launch
+    private int type;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +63,7 @@ public class MenuWordsActivity extends WearableActivity implements CircularViewC
         wrongRecordings = (ArrayList<Recording>) getIntent().getSerializableExtra(WRONG);
         randomRecordings = (ArrayList<Recording>) getIntent().getSerializableExtra(RANDOM);
         recentRecordings = (ArrayList<Recording>) getIntent().getSerializableExtra(RECENT);
+        type = getIntent().getIntExtra(TYPE, REVIEW);
 
 
         ArrayList<Recording> recordings = CRUDHelper.getRecentRecordings(getApplicationContext());
@@ -90,7 +99,11 @@ public class MenuWordsActivity extends WearableActivity implements CircularViewC
         else if(textInView.startsWith("All"))
             picked = allRecordings;
 
-        Intent intent = new Intent(this, ListOfWordsActivity.class);
+        Intent intent;
+        if(type == REVIEW)
+            intent = new Intent(this, ListOfWordsActivity.class);
+        else
+            intent = new Intent(this, QuizActivity.class);
         intent.putExtra(ListOfWordsActivity.LIST, picked);
         startActivity(intent);
     }

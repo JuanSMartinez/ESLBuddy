@@ -17,5 +17,6 @@
     <string name="title_activity_ttssetting">TTSSettingActivity</string>
     <string name="title_activity_review_recording">ReviewRecordingActivity</string>
     <string name="title_activity_menu_words">MenuWordsActivity</string>
+    <string name="title_activity_quiz">QuizActivity</string>
 
 </resources>

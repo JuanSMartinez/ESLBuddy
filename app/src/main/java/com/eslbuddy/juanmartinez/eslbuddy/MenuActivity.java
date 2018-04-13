@@ -73,6 +73,7 @@ public class MenuActivity extends WearableActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), MenuWordsActivity.class);
+                intent.putExtra(MenuWordsActivity.TYPE, MenuWordsActivity.REVIEW);
                 intent.putExtra(MenuWordsActivity.RECENT, recentRecordings);
                 intent.putExtra(MenuWordsActivity.WRONG, wrongRecordings);
                 intent.putExtra(MenuWordsActivity.RANDOM, randomRecordings);

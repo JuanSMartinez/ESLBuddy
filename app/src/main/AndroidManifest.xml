@@ -54,7 +54,7 @@
             android:label="@string/title_activity_settings" />
         <activity
             android:name=".LanguageSetupActivity"
-            android:label="@string/title_activity_language_setup"/>
+            android:label="@string/title_activity_language_setup" />
         <activity
             android:name=".LanguageSelectionActivity"
             android:label="@string/title_activity_language_selection" />
@@ -66,8 +66,10 @@
             android:label="@string/title_activity_review_recording" />
         <activity
             android:name=".MenuWordsActivity"
-            android:label="@string/title_activity_menu_words"/>
-
+            android:label="@string/title_activity_menu_words" />
+        <activity
+            android:name=".QuizActivity"
+            android:label="@string/title_activity_quiz"></activity>
     </application>
 
 </manifest>
