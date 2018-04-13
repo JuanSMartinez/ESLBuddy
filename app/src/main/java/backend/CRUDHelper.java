@@ -97,11 +97,27 @@ public class CRUDHelper {
     public static String saveRecordingAsWrong(Context context, String wrongRecordingId){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
+        if(!findIdSavedAsWrong(context, wrongRecordingId)) {
+            String id = String.valueOf(System.currentTimeMillis());
+            editor.putString(id, wrongRecordingId);
+            editor.commit();
+            return id;
+        }
+        else
+            return null;
+    }
 
-        String id = String.valueOf(System.currentTimeMillis());
-        editor.putString(id, wrongRecordingId);
-        editor.commit();
-        return id;
+    //Find a recording ID saved as a wrong answer
+    public static boolean findIdSavedAsWrong(Context context, String recordingId){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        Map<String, ?> key = preferences.getAll();
+        for(Map.Entry<String, ?> entry : key.entrySet()){
+            String recordingText = (String)entry.getValue();
+            String id = entry.getKey();
+            if(recordingText.split(":").length == 1 && recordingText.equals(recordingId))
+                return true;
+        }
+        return false;
     }
 
     //Get a recording by ID
