@@ -58,9 +58,12 @@ public class CRUDHelper {
         Map<String, ?> key = preferences.getAll();
         for(Map.Entry<String, ?> entry : key.entrySet()){
             String recordingText = (String)entry.getValue();
-            String id = entry.getKey();
-            Recording recording = new Recording(id, recordingText);
-            recordings.add(recording);
+            //Check if the saved string is a recording or the id of a wrong answer in a quizz
+            if(recordingText.split(":").length == 2) {
+                String id = entry.getKey();
+                Recording recording = new Recording(id, recordingText);
+                recordings.add(recording);
+            }
         }
         return recordings;
     }
@@ -99,6 +102,19 @@ public class CRUDHelper {
         editor.putString(id, wrongRecordingId);
         editor.commit();
         return id;
+    }
+
+    //Get a recording by ID
+    public static Recording getRecordingById(Context context, String searchedId){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        Map<String, ?> key = preferences.getAll();
+        for(Map.Entry<String, ?> entry : key.entrySet()){
+            String recordingText = (String)entry.getValue();
+            String id = entry.getKey();
+            if(searchedId.equals(id))
+                return new Recording(id, recordingText);
+        }
+        return null;
     }
 
     //Get a recording from an origin text
