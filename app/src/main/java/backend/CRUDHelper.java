@@ -113,7 +113,7 @@ public class CRUDHelper {
         Map<String, ?> key = preferences.getAll();
         for(Map.Entry<String, ?> entry : key.entrySet()){
             String recordingText = (String)entry.getValue();
-            String id = entry.getKey();
+
             if(recordingText.split(":").length == 1 && recordingText.equals(recordingId))
                 return true;
         }
@@ -131,6 +131,22 @@ public class CRUDHelper {
                 return new Recording(id, recordingText);
         }
         return null;
+    }
+
+    //Get all recordings marked as wrong
+    public static ArrayList<Recording> getAllWrongRecordings(Context context){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        Map<String, ?> key = preferences.getAll();
+        ArrayList<Recording> response = new ArrayList<>();
+        for(Map.Entry<String, ?> entry : key.entrySet()){
+            String recordingText = (String)entry.getValue();
+            String id = entry.getKey();
+            if(recordingText.split(":").length == 1){
+                Recording marked = getRecordingById(context, recordingText);
+                response.add(marked);
+            }
+        }
+        return response;
     }
 
     //Get a recording from an origin text
