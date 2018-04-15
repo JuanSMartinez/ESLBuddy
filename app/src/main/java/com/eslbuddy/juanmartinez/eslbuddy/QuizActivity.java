@@ -6,12 +6,15 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.support.wearable.activity.WearableActivity;
+import android.text.style.QuoteSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import backend.CRUDHelper;
 import backend.Recording;
 import backend.Sorter;
 import backend.TTSManager;
@@ -34,6 +37,9 @@ public class QuizActivity extends WearableActivity {
 
     //Correct response per trial
     private String correctResponse;
+
+    //Recording per trial
+    private Recording trialRecording;
 
     //Speech recognizer
     private SpeechRecognizer speechRecognizer;
@@ -76,14 +82,17 @@ public class QuizActivity extends WearableActivity {
     //Perform a trial
     private void performTrial(){
         if(indexTrial < words.size()){
-            Recording trialRecording = words.get(indexTrial);
-            String[] data = trialRecording.getRecordedText().split(":");
+            trialRecording = words.get(indexTrial);
+            String[] data = trialRecording.getRecordedText().split("&");
             correctResponse = data[0];
             String translation = data[1];
             if(TTSManager.getInstance().isOn() && speaker.isInitialized())
                 speaker.speakText(translation);
             translatedTextView.setText(translation);
             indexTrial ++;
+        }
+        else{
+            finish();
         }
     }
 
@@ -103,11 +112,25 @@ public class QuizActivity extends WearableActivity {
 
     @Override
     protected void onDestroy() {
-        speechRecognizer.cancel();
+
         speechRecognizer.destroy();
+        speechRecognizer = null;
+        speaker.finishTTS();
         super.onDestroy();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == QuizResponseActivity.REQUEST_CODE && resultCode == RESULT_OK){
+
+            int result = data.getIntExtra(QuizResponseActivity.RESULT, QuizResponseActivity.ANSWER_INCORRECT);
+            if(result == QuizResponseActivity.ANSWER_INCORRECT) {
+
+                CRUDHelper.saveRecordingAsWrong(getApplicationContext(), trialRecording.getId());
+            }
+        }
+        performTrial();
+    }
 
 
     protected class SpeechRecognitionListener implements RecognitionListener {
@@ -148,7 +171,11 @@ public class QuizActivity extends WearableActivity {
             recognitionResult = finalResults;
             recordedResponse.setText(finalResults);
 
+            Intent intent = new Intent(getApplicationContext(), QuizResponseActivity.class);
+            intent.putExtra(QuizResponseActivity.CORRECT_RESPONSE, correctResponse);
+            intent.putExtra(QuizResponseActivity.RESPONSE, recognitionResult);
 
+            startActivityForResult(intent, QuizResponseActivity.REQUEST_CODE);
         }
 
         @Override

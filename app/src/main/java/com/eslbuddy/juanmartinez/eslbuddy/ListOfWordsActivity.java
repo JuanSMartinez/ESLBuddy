@@ -40,7 +40,7 @@ public class ListOfWordsActivity extends WearableActivity implements CircularVie
             data = new String[recordings.size()];
             for (int i = 0; i < recordings.size(); i++) {
                 Recording recording = recordings.get(i);
-                data[i] = recording.getRecordedText().split(":")[0];
+                data[i] = recording.getRecordedText().split("&")[0];
             }
         }
         CustomListAdapter adapter = new CustomListAdapter(data, this);
@@ -62,7 +62,7 @@ public class ListOfWordsActivity extends WearableActivity implements CircularVie
         Intent intent = new Intent(getApplicationContext(), ReviewRecordingActivity.class);
         Recording recording = CRUDHelper.getRecordingFromOriginText(getApplicationContext(), textInView);
         if(recording != null){
-            String[] data = recording.getRecordedText().split(":");
+            String[] data = recording.getRecordedText().split("&");
             intent.putExtra(ReviewRecordingActivity.RECORDED_TEXT, data[0]);
             intent.putExtra(ReviewRecordingActivity.TRANSLATION, data[1]);
             startActivity(intent);

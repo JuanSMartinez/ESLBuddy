@@ -69,7 +69,10 @@
             android:label="@string/title_activity_menu_words" />
         <activity
             android:name=".QuizActivity"
-            android:label="@string/title_activity_quiz"></activity>
+            android:label="@string/title_activity_quiz" />
+        <activity
+            android:name=".QuizResponseActivity"
+            android:label="@string/title_activity_correct_response"></activity>
     </application>
 
 </manifest>

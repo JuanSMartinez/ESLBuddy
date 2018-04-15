@@ -64,7 +64,7 @@ public class RecordedTextActivity extends WearableActivity {
             public void onClick(View v) {
                 String recordedText = recordedTextView.getText().toString();
                 String translatedText = translatedTextView.getText().toString();
-                CRUDHelper.createRecording(recordedText + ":" + translatedText, getApplicationContext());
+                CRUDHelper.createRecording(recordedText + "&" + translatedText, getApplicationContext());
                 Intent intent = new Intent(getApplicationContext(), SavedRecordingActivityPopUp.class);
                 startActivity(intent);
                 finish();

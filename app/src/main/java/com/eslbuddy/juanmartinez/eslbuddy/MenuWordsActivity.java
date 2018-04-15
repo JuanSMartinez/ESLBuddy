@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.wear.widget.WearableLinearLayoutManager;
 import android.support.wear.widget.WearableRecyclerView;
 import android.support.wearable.activity.WearableActivity;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -19,10 +20,6 @@ import backend.Recording;
 public class MenuWordsActivity extends WearableActivity implements CircularViewClickListener{
 
     //Identifiers for the types of lists
-    public final static String RECENT = "Recent";
-    public final static String WRONG = "Wrong";
-    public final static String RANDOM = "Random";
-    public final static String ALL = "All";
 
     //Identifiers to the type of activity to be launched when selecting a list
     public final static String TYPE = "Type";
@@ -46,8 +43,14 @@ public class MenuWordsActivity extends WearableActivity implements CircularViewC
     //Random recordings
     private ArrayList<Recording> randomRecordings;
 
+    //List adapter
+    private CustomListAdapter adapter;
+
     //Type of activity to launch
     private int type;
+
+    //Data
+    private String[] data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,20 +62,11 @@ public class MenuWordsActivity extends WearableActivity implements CircularViewC
         mWearableRecyclerView.setEdgeItemsCenteringEnabled(true);
 
         //Retrieve lists
-        allRecordings = (ArrayList<Recording>) getIntent().getSerializableExtra(ALL);
-        wrongRecordings = (ArrayList<Recording>) getIntent().getSerializableExtra(WRONG);
-        randomRecordings = (ArrayList<Recording>) getIntent().getSerializableExtra(RANDOM);
-        recentRecordings = (ArrayList<Recording>) getIntent().getSerializableExtra(RECENT);
+
         type = getIntent().getIntExtra(TYPE, REVIEW);
+        updateData();
 
-
-        ArrayList<Recording> recordings = CRUDHelper.getRecentRecordings(getApplicationContext());
-        String[] data = new String[]{"Recent (" + recordings.size() +")",
-                "Wrong Answer (" + wrongRecordings.size() +")",
-                "Random (" + randomRecordings.size() + ")",
-                "All (" + allRecordings.size() + ")"};
-
-        CustomListAdapter adapter = new CustomListAdapter(data, this);
+        adapter = new CustomListAdapter(data, this);
         mWearableRecyclerView.setAdapter(adapter);
 
         mWearableRecyclerView.setCircularScrollingGestureEnabled(true);
@@ -88,6 +82,13 @@ public class MenuWordsActivity extends WearableActivity implements CircularViewC
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
+    }
+
+
+    @Override
     public void onClickListItem(String textInView) {
         ArrayList<Recording> picked = new ArrayList<>();
         if(textInView.startsWith("Recent"))
@@ -100,11 +101,26 @@ public class MenuWordsActivity extends WearableActivity implements CircularViewC
             picked = allRecordings;
 
         Intent intent;
-        if(type == REVIEW)
-            intent = new Intent(this, ListOfWordsActivity.class);
-        else
+        if(type == QUIZ && picked.size() >0)
             intent = new Intent(this, QuizActivity.class);
+        else
+            intent = new Intent(this, ListOfWordsActivity.class);
         intent.putExtra(ListOfWordsActivity.LIST, picked);
         startActivity(intent);
+        finish();
+    }
+
+    //Update lists
+    private void updateData(){
+        allRecordings = CRUDHelper.getRecordings(getApplicationContext());
+        wrongRecordings = CRUDHelper.getAllWrongRecordings(getApplicationContext());
+        randomRecordings = CRUDHelper.getRandomRecordings(getApplicationContext());
+        recentRecordings = CRUDHelper.getRecentRecordings(getApplicationContext());
+        if(data == null)
+            data = new String[4];
+        data[0] = "Recent (" + recentRecordings.size() +")";
+        data[1] = "Wrong Answer (" + wrongRecordings.size() +")";
+        data[2] = "Random (" + randomRecordings.size() + ")";
+        data[3] =  "All (" + allRecordings.size() + ")";
     }
 }

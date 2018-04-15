@@ -20,8 +20,8 @@ public class Sorter<T extends Comparable<T>> {
             }
         }
         T temp = (T)array.get(i+1);
-        array.add(i+1, array.get(r));
-        array.add(r, temp);
+        array.set(i+1, array.get(r));
+        array.set(r, temp);
         return i+1;
     }
 
@@ -39,8 +39,8 @@ public class Sorter<T extends Comparable<T>> {
         for(int i = 0; i < array.size()-2; i ++){
             int j = (int)Math.random()*(array.size() - i) + i;
             T temp = array.get(i);
-            array.add(i, array.get(j));
-            array.add(j, temp);
+            array.set(i, array.get(j));
+            array.set(j, temp);
         }
     }
 

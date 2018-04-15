@@ -3,6 +3,7 @@ package backend;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.eslbuddy.juanmartinez.eslbuddy.ListOfWordsActivity;
 
@@ -30,7 +31,7 @@ public class CRUDHelper {
         SharedPreferences.Editor editor = preferences.edit();
 
         //No repeated recordings are added, even if the translation text has changed
-        if(getRecordingFromOriginText(context, recording.split(":")[0]) == null) {
+        if(getRecordingFromOriginText(context, recording.split("&")[0]) == null) {
 
             SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
             String id = format.format(new Date());
@@ -60,7 +61,7 @@ public class CRUDHelper {
         for(Map.Entry<String, ?> entry : key.entrySet()){
             String recordingText = (String)entry.getValue();
             //Check if the saved string is a recording or the id of a wrong answer in a quiz
-            if(recordingText.split(":").length == 2) {
+            if(recordingText.split("&").length == 2) {
                 String id = entry.getKey();
                 Recording recording = new Recording(id, recordingText);
                 recordings.add(recording);
@@ -80,9 +81,11 @@ public class CRUDHelper {
 
         //Sort the array
         Sorter sorter = new Sorter();
+
         sorter.quickSort(allRecordings, 0, allRecordings.size()-1);
 
         //Add the latest recordings
+
         int j = 0;
         for(int i = allRecordings.size() -1; i >= 0  && j < MAX_WORDS; i--){
             lastRecordings.add(allRecordings.get(i));
@@ -99,6 +102,7 @@ public class CRUDHelper {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
         if(!findIdSavedAsWrong(context, wrongRecordingId)) {
+
             String id = String.valueOf(System.currentTimeMillis());
             editor.putString(id, wrongRecordingId);
             editor.commit();
@@ -115,7 +119,7 @@ public class CRUDHelper {
         for(Map.Entry<String, ?> entry : key.entrySet()){
             String recordingText = (String)entry.getValue();
 
-            if(recordingText.split(":").length == 1 && recordingText.equals(recordingId))
+            if(recordingText.split("&").length == 1 && recordingText.equals(recordingId))
                 return true;
         }
         return false;
@@ -142,7 +146,9 @@ public class CRUDHelper {
         for(Map.Entry<String, ?> entry : key.entrySet()){
             String recordingText = (String)entry.getValue();
             String id = entry.getKey();
-            if(recordingText.split(":").length == 1){
+            Log.d("Debug", "Found recording:" + recordingText);
+            if(recordingText.split("&").length == 1){
+
                 Recording marked = getRecordingById(context, recordingText);
                 response.add(marked);
             }
@@ -157,7 +163,7 @@ public class CRUDHelper {
         for(Map.Entry<String, ?> entry : key.entrySet()){
             String recordingText = (String)entry.getValue();
             String id = entry.getKey();
-            if(text.equals(recordingText.split(":")[0]))
+            if(text.equals(recordingText.split("&")[0]))
                 return new Recording(id, recordingText);
         }
         return null;
@@ -176,14 +182,15 @@ public class CRUDHelper {
         //All recordings
         ArrayList<Recording> all = getRecordings(context);
         ArrayList<Recording> response = new ArrayList<>();
+
         int amount = Math.min(all.size(), MAX_WORDS);
         for(int i = 0 ; i < amount; i++){
             int index = (int)Math.random()*all.size();
             Recording random = all.get(index);
-            while (response.indexOf(random) != -1){
+            /*while (response.indexOf(random) != -1){
                 index = (int)Math.random()*all.size();
                 random = all.get(index);
-            }
+            }*/
             response.add(random);
         }
         return response;

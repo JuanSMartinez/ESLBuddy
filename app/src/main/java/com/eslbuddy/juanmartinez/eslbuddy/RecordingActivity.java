@@ -72,6 +72,17 @@ public class RecordingActivity extends WearableActivity {
         startSpeechRecognition();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+
+        super.onPause();
+    }
+
     /**
      * Start listening
      */
@@ -90,8 +101,9 @@ public class RecordingActivity extends WearableActivity {
 
     @Override
     protected void onDestroy() {
-        speechRecognizer.cancel();
+
         speechRecognizer.destroy();
+        speechRecognizer = null;
         super.onDestroy();
     }
 

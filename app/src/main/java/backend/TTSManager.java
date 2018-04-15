@@ -17,7 +17,7 @@ public class TTSManager{
 
     //Private constructor
     private TTSManager(){
-        ttsOn = true;
+        ttsOn = false;
     }
 
     public void turnOn(){

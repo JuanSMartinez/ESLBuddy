@@ -18,5 +18,6 @@
     <string name="title_activity_review_recording">ReviewRecordingActivity</string>
     <string name="title_activity_menu_words">MenuWordsActivity</string>
     <string name="title_activity_quiz">QuizActivity</string>
+    <string name="title_activity_correct_response">CorrectResponseActivity</string>
 
 </resources>
