@@ -1,5 +1,6 @@
 package com.eslbuddy.juanmartinez.eslbuddy;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -22,6 +23,10 @@ public class MainActivity extends WearableActivity{
 
     //Recording permission code
     public final static int SPEECH_RECORDING_PERMISSION = 5000;
+    public final static int INTERNET_PERMISSION = 12;
+    public final static int COARSE_LOCATION_PERMISSION = 13;
+    public final static int ACCESS_WIFI_STATE = 14;
+    public final static int CHANGE_WIFI_STATE = 15;
 
     //Swipe threshold
     public final static int SWIPE_THRESHOLD = 100;
@@ -35,7 +40,7 @@ public class MainActivity extends WearableActivity{
         setContentView(R.layout.activity_main);
 
         //Request permission
-        requestRecordingPermission();
+        requestPermissions();
 
 
         ImageButton recordButton = findViewById(R.id.recordButton);
@@ -43,13 +48,11 @@ public class MainActivity extends WearableActivity{
         recordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkRecordingPermission()) {
-                    Intent intent = new Intent(getApplicationContext(), RecordingActivity.class);
-                    startActivity(intent);
-                }
-                else{
-                    requestRecordingPermission();
-                }
+
+                Intent intent = new Intent(getApplicationContext(), RecordingActivity.class);
+                startActivity(intent);
+
+
             }
         });
 
@@ -57,11 +60,6 @@ public class MainActivity extends WearableActivity{
 
         // Enables Always-on
         setAmbientEnabled();
-
-        //TODO: REMOVE: SOME EXAMPLE RECORDINGS FOR TESTING ONLY
-        //CRUDHelper.deleteAllRecordings(this);
-        //CRUDHelper.createRecording("Recording:Grabacion", this);
-
 
     }
 
@@ -80,9 +78,8 @@ public class MainActivity extends WearableActivity{
                     case MotionEvent.ACTION_DOWN:
                         x1 = event.getX();
                         y1 = event.getY();
-
+                        //return v.performClick();
                         return true;
-
                     case MotionEvent.ACTION_UP:
                         x2 = event.getX();
                         y2 = event.getY();
@@ -118,18 +115,39 @@ public class MainActivity extends WearableActivity{
     }
 
 
-
-
-    private boolean checkRecordingPermission(){
-        int result = ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO);
-        return result == PackageManager.PERMISSION_GRANTED;
+    private boolean checkSharingPersimssions(){
+        if (!(ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED)) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO},
+                    SPEECH_RECORDING_PERMISSION);
+            return false;
+        }
+        else if (!(ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED)) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET},
+                    INTERNET_PERMISSION);
+            return false;
+        }
+        else if(!(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    COARSE_LOCATION_PERMISSION);
+            return false;
+        }
+        else if(!(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_WIFI_STATE) == PackageManager.PERMISSION_GRANTED)) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_WIFI_STATE},
+                    ACCESS_WIFI_STATE);
+            return false;
+        }
+        else if(!(ContextCompat.checkSelfPermission(this, Manifest.permission.CHANGE_WIFI_STATE) == PackageManager.PERMISSION_GRANTED)) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CHANGE_WIFI_STATE},
+                    CHANGE_WIFI_STATE);
+            return false;
+        }
+        else
+            return true;
     }
 
-    private void requestRecordingPermission(){
-        //while(!checkRecordingPermission()){
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.RECORD_AUDIO},
-                    SPEECH_RECORDING_PERMISSION);
-        //}
+    private void requestPermissions(){
+        while(!checkSharingPersimssions())
+            ;
     }
 
 

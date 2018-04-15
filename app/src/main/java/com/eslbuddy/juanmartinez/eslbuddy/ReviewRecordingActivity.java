@@ -1,9 +1,13 @@
 package com.eslbuddy.juanmartinez.eslbuddy;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.Voice;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.wearable.activity.WearableActivity;
 import android.util.ArraySet;
 import android.util.Log;
@@ -23,6 +27,8 @@ public class ReviewRecordingActivity extends WearableActivity {
     //Constants to identify strings
     public final static String RECORDED_TEXT = "Recorded";
     public final static String TRANSLATION = "Translation";
+
+    //Permssions codes
 
     //Speak identifier
     private final static String UID = "uid";
@@ -111,4 +117,6 @@ public class ReviewRecordingActivity extends WearableActivity {
         else
             Log.d("Debug", "Not Initialized");
     }
+
+
 }

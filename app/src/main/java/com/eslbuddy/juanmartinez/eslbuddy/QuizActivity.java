@@ -128,6 +128,7 @@ public class QuizActivity extends WearableActivity {
 
                 CRUDHelper.saveRecordingAsWrong(getApplicationContext(), trialRecording.getId());
             }
+            recordedResponse.setText("");
         }
         performTrial();
     }
