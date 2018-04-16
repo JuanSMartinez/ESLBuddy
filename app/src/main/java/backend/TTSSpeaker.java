@@ -29,9 +29,9 @@ public class TTSSpeaker implements TextToSpeech.OnInitListener{
     private static TTSSpeaker instance = null;
 
     //Get instance
-    public static TTSSpeaker getInstance(Context context, String languageCode){
+    public static TTSSpeaker getInstance(Context context){
         if(instance == null)
-            instance = new TTSSpeaker(context, languageCode);
+            instance = new TTSSpeaker(context, "en");
         return instance;
     }
 
@@ -39,7 +39,7 @@ public class TTSSpeaker implements TextToSpeech.OnInitListener{
     public TTSSpeaker(Context context, String languageCode){
         code = languageCode;
         initialized = false;
-        on = false;
+        on = true;
         tts = new TextToSpeech(context, this);
     }
 
@@ -80,6 +80,25 @@ public class TTSSpeaker implements TextToSpeech.OnInitListener{
         if(initialized && on) {
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
 
+        }
+    }
+
+    public void changeLanguage(String code){
+        if(initialized){
+            Locale closest = Locale.forLanguageTag(code);
+            tts.setLanguage(closest);
+            Set<Voice> voices = tts.getVoices();
+            int lowestLatency = Voice.LATENCY_VERY_HIGH;
+            Voice selected = tts.getDefaultVoice();
+            for(Voice voice : voices){
+                if(voice.getLatency() <= lowestLatency
+                        && voice.getLocale().getLanguage().equals(code)
+                        && !voice.isNetworkConnectionRequired()){
+                    lowestLatency = voice.getLatency();
+                    selected = voice;
+                }
+            }
+            tts.setVoice(selected);
         }
     }
 

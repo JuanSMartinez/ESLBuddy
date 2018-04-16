@@ -60,7 +60,7 @@ public class MainActivity extends WearableActivity{
         setTouchEventListener();
 
         //Initialize tts
-        TTSSpeaker.getInstance(getApplicationContext(), "en");
+        TTSSpeaker.getInstance(getApplicationContext());
 
         // Enables Always-on
         setAmbientEnabled();
@@ -114,7 +114,7 @@ public class MainActivity extends WearableActivity{
 
     @Override
     protected void onDestroy() {
-        TTSSpeaker.getInstance(getApplicationContext(), "en").finishTTS();
+        TTSSpeaker.getInstance(getApplicationContext()).finishTTS();
         super.onDestroy();
 
     }

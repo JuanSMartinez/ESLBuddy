@@ -19,15 +19,15 @@ public class TTSSettingActivity extends WearableActivity {
         setContentView(R.layout.activity_ttssetting);
 
         ttsSwitch = findViewById(R.id.ttsSwitch);
-        ttsSwitch.setChecked(TTSSpeaker.getInstance(getApplicationContext(), "en").isOn());
+        ttsSwitch.setChecked(TTSSpeaker.getInstance(getApplicationContext()).isOn());
 
         ttsSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(ttsSwitch.isChecked())
-                    TTSSpeaker.getInstance(getApplicationContext(), "en").turnOn();
+                    TTSSpeaker.getInstance(getApplicationContext()).turnOn();
                 else
-                    TTSSpeaker.getInstance(getApplicationContext(), "en").turnOff();
+                    TTSSpeaker.getInstance(getApplicationContext()).turnOff();
             }
         });
         // Enables Always-on
@@ -37,7 +37,7 @@ public class TTSSettingActivity extends WearableActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        ttsSwitch.setChecked(TTSSpeaker.getInstance(getApplicationContext(), "en").isOn());
+        ttsSwitch.setChecked(TTSSpeaker.getInstance(getApplicationContext()).isOn());
     }
 
 

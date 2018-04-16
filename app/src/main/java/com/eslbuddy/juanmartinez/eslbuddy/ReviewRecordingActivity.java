@@ -54,6 +54,7 @@ public class ReviewRecordingActivity extends WearableActivity {
                 if(switchWords.isChecked()) {
                     displayTextView.setText(translation);
                     switchWords.setText("Translation");
+
                 }
                 else {
                     speakRecording();
@@ -77,7 +78,7 @@ public class ReviewRecordingActivity extends WearableActivity {
 
 
     private void speakRecording(){
-        TTSSpeaker.getInstance(getApplicationContext(), "en").speakText(recordedText);
+        TTSSpeaker.getInstance(getApplicationContext()).speakText(recordedText);
     }
 
 
