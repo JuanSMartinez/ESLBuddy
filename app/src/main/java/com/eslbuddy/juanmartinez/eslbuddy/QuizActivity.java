@@ -6,8 +6,6 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.support.wearable.activity.WearableActivity;
-import android.text.style.QuoteSpan;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -17,7 +15,6 @@ import java.util.ArrayList;
 import backend.CRUDHelper;
 import backend.Recording;
 import backend.Sorter;
-import backend.TTSManager;
 import backend.TTSSpeaker;
 import backend.YandexAPIManager;
 
@@ -47,14 +44,11 @@ public class QuizActivity extends WearableActivity {
     //Recognition result
     String recognitionResult;
 
-    //TTS speaker
-    private TTSSpeaker speaker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
-        speaker = new TTSSpeaker(this, YandexAPIManager.getInstance(this).getTranslationCode(), "quiz");
         indexTrial = 0;
 
         translatedTextView = findViewById(R.id.textViewQuizRecording);
@@ -86,8 +80,7 @@ public class QuizActivity extends WearableActivity {
             String[] data = trialRecording.getRecordedText().split("&");
             correctResponse = data[0];
             String translation = data[1];
-            if(TTSManager.getInstance().isOn() && speaker.isInitialized())
-                speaker.speakText(translation);
+
             translatedTextView.setText(translation);
             indexTrial ++;
         }
@@ -115,7 +108,7 @@ public class QuizActivity extends WearableActivity {
 
         speechRecognizer.destroy();
         speechRecognizer = null;
-        speaker.finishTTS();
+
         super.onDestroy();
     }
 

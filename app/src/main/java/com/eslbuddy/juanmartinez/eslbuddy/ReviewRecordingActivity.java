@@ -1,24 +1,12 @@
 package com.eslbuddy.juanmartinez.eslbuddy;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
-import android.speech.tts.Voice;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.wearable.activity.WearableActivity;
-import android.util.ArraySet;
 import android.util.Log;
 import android.view.View;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import java.util.Locale;
-import java.util.Set;
-
-import backend.TTSManager;
 import backend.TTSSpeaker;
 import backend.YandexAPIManager;
 
@@ -45,11 +33,6 @@ public class ReviewRecordingActivity extends WearableActivity {
     //translation
     private String translation;
 
-    //Text to speech object
-    private TTSSpeaker ttsSpeakerOrigin;
-
-    private TTSSpeaker ttsSpeakerTranslation;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +52,6 @@ public class ReviewRecordingActivity extends WearableActivity {
             @Override
             public void onClick(View v) {
                 if(switchWords.isChecked()) {
-                    speakTranslation();
                     displayTextView.setText(translation);
                     switchWords.setText("Translation");
                 }
@@ -83,39 +65,19 @@ public class ReviewRecordingActivity extends WearableActivity {
         // Enables Always-on
         setAmbientEnabled();
 
-        ttsSpeakerOrigin = new TTSSpeaker(this, YandexAPIManager.getInstance(getApplicationContext()).getOriginCode(), "Origin");
-        ttsSpeakerTranslation = new TTSSpeaker(this, YandexAPIManager.getInstance(getApplicationContext()).getTranslationCode(), "Translation");
+        speakRecording();
 
     }
 
     @Override
     protected void onDestroy() {
-        if(ttsSpeakerOrigin != null){
-            ttsSpeakerOrigin.finishTTS();
-        }
-        if(ttsSpeakerTranslation != null){
-            ttsSpeakerTranslation.finishTTS();
-        }
+
         super.onDestroy();
     }
 
 
     private void speakRecording(){
-        if (ttsSpeakerOrigin.isInitialized() && TTSManager.getInstance().isOn()){
-
-            ttsSpeakerOrigin.speakText(recordedText);
-        }
-        else
-            Log.d("Debug", "Not Initialized");
-    }
-
-    private void speakTranslation(){
-        if (ttsSpeakerTranslation.isInitialized() && TTSManager.getInstance().isOn()){
-
-            ttsSpeakerTranslation.speakText(translation);
-        }
-        else
-            Log.d("Debug", "Not Initialized");
+        TTSSpeaker.getInstance(getApplicationContext(), "en").speakText(recordedText);
     }
 
 

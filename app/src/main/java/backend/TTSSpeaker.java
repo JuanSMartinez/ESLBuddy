@@ -22,14 +22,24 @@ public class TTSSpeaker implements TextToSpeech.OnInitListener{
     //Initialized flag
     private  boolean initialized;
 
-    //ID
-    private String utteranceId;
+    //Speaker on
+    private boolean on = true;
+
+    //Singleton
+    private static TTSSpeaker instance = null;
+
+    //Get instance
+    public static TTSSpeaker getInstance(Context context, String languageCode){
+        if(instance == null)
+            instance = new TTSSpeaker(context, languageCode);
+        return instance;
+    }
 
     //Constructor
-    public TTSSpeaker(Context context, String languageCode, String id){
+    public TTSSpeaker(Context context, String languageCode){
         code = languageCode;
         initialized = false;
-        utteranceId = id;
+        on = false;
         tts = new TextToSpeech(context, this);
     }
 
@@ -54,9 +64,21 @@ public class TTSSpeaker implements TextToSpeech.OnInitListener{
         }
     }
 
+    public void turnOn(){
+        on = true;
+    }
+
+    public void turnOff(){
+        on = false;
+    }
+
+    public boolean isOn (){
+        return on;
+    }
+
     public void speakText(String text){
-        if(initialized) {
-            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, utteranceId);
+        if(initialized && on) {
+            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
 
         }
     }
@@ -67,6 +89,7 @@ public class TTSSpeaker implements TextToSpeech.OnInitListener{
         if(tts != null){
             tts.stop();
             tts.shutdown();
+            instance = null;
         }
     }
 }

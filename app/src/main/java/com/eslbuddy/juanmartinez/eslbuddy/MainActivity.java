@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import backend.CRUDHelper;
 import backend.Recording;
+import backend.TTSSpeaker;
 
 public class MainActivity extends WearableActivity{
 
@@ -57,6 +58,9 @@ public class MainActivity extends WearableActivity{
         });
 
         setTouchEventListener();
+
+        //Initialize tts
+        TTSSpeaker.getInstance(getApplicationContext(), "en");
 
         // Enables Always-on
         setAmbientEnabled();
@@ -110,6 +114,7 @@ public class MainActivity extends WearableActivity{
 
     @Override
     protected void onDestroy() {
+        TTSSpeaker.getInstance(getApplicationContext(), "en").finishTTS();
         super.onDestroy();
 
     }
