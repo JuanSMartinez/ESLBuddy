@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import backend.HttpQuizManager;
 
@@ -29,6 +30,8 @@ public class ShareToUserActivity extends WearableActivity {
             public void onClick(View v) {
                 String userNameOther = shareUser.getText().toString();
                 HttpQuizManager.getInstance(getApplicationContext()).postQuiz(userNameOther,quiz);
+                Toast.makeText(getApplicationContext(), "Shared recording as a quiz!", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
 
