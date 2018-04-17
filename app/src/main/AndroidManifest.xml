@@ -77,7 +77,10 @@
             android:label="@string/title_activity_correct_response" />
         <activity
             android:name=".NameSettingsActivity"
-            android:label="@string/title_activity_name_settings"></activity>
+            android:label="@string/title_activity_name_settings" />
+        <activity
+            android:name=".ShareToUserActivity"
+            android:label="@string/title_activity_share_to_user"></activity>
     </application>
 
 </manifest>
