@@ -146,7 +146,7 @@ public class CRUDHelper {
         for(Map.Entry<String, ?> entry : key.entrySet()){
             String recordingText = (String)entry.getValue();
             String id = entry.getKey();
-            Log.d("Debug", "Found recording:" + recordingText);
+
             if(recordingText.split("&").length == 1){
 
                 Recording marked = getRecordingById(context, recordingText);

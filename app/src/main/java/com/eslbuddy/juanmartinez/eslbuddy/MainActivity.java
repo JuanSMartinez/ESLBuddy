@@ -2,8 +2,12 @@ package com.eslbuddy.juanmartinez.eslbuddy;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -13,10 +17,12 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import backend.CRUDHelper;
+import backend.P2PReceiver;
 import backend.Recording;
 import backend.TTSSpeaker;
 
@@ -31,6 +37,15 @@ public class MainActivity extends WearableActivity{
 
     //Swipe threshold
     public final static int SWIPE_THRESHOLD = 100;
+
+    //Intent filter for P2P connections
+    private final IntentFilter intentFilter = new IntentFilter();
+
+    //Wifip2p objects
+    private P2PReceiver receiver;
+    private WifiP2pManager mManager;
+    private WifiP2pManager.Channel mChannel;
+
 
     //coordinates to detect swipe
     private float x1,y1,x2,y2;
@@ -62,9 +77,27 @@ public class MainActivity extends WearableActivity{
         //Initialize tts
         TTSSpeaker.getInstance(getApplicationContext());
 
+        //P2P service
+        setP2PService();
+
         // Enables Always-on
         setAmbientEnabled();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        receiver = new P2PReceiver(this, mChannel, mManager);
+        registerReceiver(receiver, intentFilter);
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        unregisterReceiver(receiver);
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -78,7 +111,7 @@ public class MainActivity extends WearableActivity{
                 int action = event.getActionMasked();
 
                 switch (action){
-                    //Message by SangWon
+
                     case MotionEvent.ACTION_DOWN:
                         x1 = event.getX();
                         y1 = event.getY();
@@ -119,8 +152,26 @@ public class MainActivity extends WearableActivity{
 
     }
 
+    private void setP2PService(){
+        // Indicates a change in the Wi-Fi P2P status.
+        intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
 
-    private boolean checkSharingPersimssions(){
+        // Indicates a change in the list of available peers.
+        intentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION);
+
+        // Indicates the state of Wi-Fi P2P connectivity has changed.
+        intentFilter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
+
+        // Indicates this device's details have changed.
+        intentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
+
+        mManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
+        mChannel = mManager.initialize(this, getMainLooper(), null);
+
+    }
+
+
+    private boolean checkSharingPermissions(){
         if (!(ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED)) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO},
                     SPEECH_RECORDING_PERMISSION);
@@ -151,7 +202,7 @@ public class MainActivity extends WearableActivity{
     }
 
     private void requestPermissions(){
-        while(!checkSharingPersimssions())
+        while(!checkSharingPermissions())
             ;
     }
 

@@ -57,7 +57,8 @@
             android:label="@string/title_activity_saved_recording_pop_up" />
         <activity
             android:name=".MenuActivity"
-            android:label="@string/title_activity_menu" />
+            android:label="@string/title_activity_menu"
+            android:theme="@style/MenuTheme"/>
         <activity
             android:name=".ListOfWordsActivity"
             android:label="@string/title_activity_recent_words" />
