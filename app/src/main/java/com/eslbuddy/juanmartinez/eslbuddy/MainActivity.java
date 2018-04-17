@@ -29,6 +29,7 @@ import backend.HttpQuizManager;
 import backend.P2PReceiver;
 import backend.Recording;
 import backend.TTSSpeaker;
+import backend.UserProfile;
 
 public class MainActivity extends WearableActivity implements HttpGetListener{
 
@@ -95,7 +96,7 @@ public class MainActivity extends WearableActivity implements HttpGetListener{
 
     private void fetchQuiz() {
         HttpQuizManager manager = HttpQuizManager.getInstance(getApplicationContext());
-        manager.getAQuiz("juan", this);
+        manager.getAQuiz(UserProfile.getInstance().getName(), this);
     }
 
     @Override
