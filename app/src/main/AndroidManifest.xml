@@ -5,13 +5,9 @@
     <uses-feature android:name="android.hardware.type.watch" />
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-
-    <uses-permission android:name="android.permission.VIBRATE"/>
-
-    <uses-permission
-        android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -51,7 +47,7 @@
         <activity
             android:name=".MenuActivity"
             android:label="@string/title_activity_menu"
-            android:theme="@style/MenuTheme"/>
+            android:theme="@style/MenuTheme" />
         <activity
             android:name=".ListOfWordsActivity"
             android:label="@string/title_activity_recent_words" />
@@ -78,7 +74,10 @@
             android:label="@string/title_activity_quiz" />
         <activity
             android:name=".QuizResponseActivity"
-            android:label="@string/title_activity_correct_response"></activity>
+            android:label="@string/title_activity_correct_response" />
+        <activity
+            android:name=".NameSettingsActivity"
+            android:label="@string/title_activity_name_settings"></activity>
     </application>
 
 </manifest>
