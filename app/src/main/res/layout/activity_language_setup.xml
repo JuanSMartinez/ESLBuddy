@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/black"
     android:padding="@dimen/box_inset_layout_padding"
     tools:context=".LanguageSetupActivity"
     tools:deviceIds="wear">
@@ -23,7 +23,7 @@
             android:layout_alignParentTop="true"
             android:text="Input"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/grey"
             android:textSize="22sp" />
 
         <TextView
@@ -46,7 +46,7 @@
             android:layout_alignParentStart="true"
             android:text="Output"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/grey"
             android:textSize="22sp" />
 
         <TextView

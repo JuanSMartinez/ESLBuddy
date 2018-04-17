@@ -5,11 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/black"
     android:padding="@dimen/box_inset_layout_padding"
     android:id="@+id/mainLayout"
     tools:context="com.eslbuddy.juanmartinez.eslbuddy.MainActivity"
     tools:deviceIds="wear">
+
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,13 +24,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
             android:text="@string/record_label"
-            android:textSize="20sp"
             android:textAlignment="center"
-            android:textColor="@color/black" />
+            android:textColor="@color/grey"
+            android:textSize="15sp" />
 
-        <ImageButton
+        <!--<ImageButton
             android:id="@+id/recordButton"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -36,15 +38,32 @@
             android:layout_centerVertical="true"
             android:background="@color/complicationDrawable_backgroundColor"
             android:scaleType="fitCenter"
-            android:src="@drawable/red_circle" />
+            android:src="@drawable/red_circle" />-->
+
+        <!--android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:src="@drawable/ic_my_icon"
+            android:layout_margin="16dp" />-->
 
         <!--<Button
+            android:id="@+id/button_id"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/self_destruct" />-->
+
+        <Button
             android:id="@+id/recordButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            style="@android:style/Widget.DeviceDefault.Button"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_centerInParent="true"
-            android:background="@drawable/red_circle"
-            android:text="" />-->
+            android:background="@drawable/record_button"
+            android:elevation="0dp" />
+            <!--android:background="@drawable/red_circle"-->
+            android:text="" />
 
 
 
