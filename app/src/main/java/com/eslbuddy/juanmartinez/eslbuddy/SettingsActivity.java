@@ -54,7 +54,8 @@ public class SettingsActivity extends WearableActivity implements CircularViewCl
             startActivity(intent);
         }
         else if(textInView.equals("Name")){
-
+            Intent intent = new Intent(getApplicationContext(), NameSettingsActivity.class);
+            startActivity(intent);
         }
         else if(textInView.equals("Delete")){
             CRUDHelper.deleteAllRecordings(getApplicationContext());
