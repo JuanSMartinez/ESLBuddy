@@ -36,9 +36,10 @@ public class MainActivity extends WearableActivity implements HttpGetListener{
     //Recording permission code
     public final static int SPEECH_RECORDING_PERMISSION = 5000;
     public final static int INTERNET_PERMISSION = 12;
-    public final static int COARSE_LOCATION_PERMISSION = 13;
-    public final static int ACCESS_WIFI_STATE = 14;
-    public final static int CHANGE_WIFI_STATE = 15;
+
+    //Server error codes
+    public final static String FETCHED = "FETCHED";
+    public final static String NO_QUIZ = "NO_QUIZ";
 
     //Swipe threshold
     public final static int SWIPE_THRESHOLD = 100;
@@ -187,7 +188,7 @@ public class MainActivity extends WearableActivity implements HttpGetListener{
 
     @Override
     public void processStringGetResponse(String response) {
-        if(!response.equals("FETCHED")) {
+        if(!response.equals(FETCHED) && !response.equals(NO_QUIZ)) {
             Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
             long[] vibrationPattern = {0, 500, 50, 300};
             //-1 - don't repeat

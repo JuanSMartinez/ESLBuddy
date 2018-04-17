@@ -32,7 +32,7 @@ public class NameSettingsActivity extends WearableActivity {
         });
 
         ImageButton cancelButton = findViewById(R.id.cancelButtonName);
-        okButton.setOnClickListener(new View.OnClickListener() {
+        cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -41,5 +41,11 @@ public class NameSettingsActivity extends WearableActivity {
 
         // Enables Always-on
         setAmbientEnabled();
+    }
+
+    @Override
+    protected void onResume() {
+        nameText.setText(UserProfile.getInstance().getName());
+        super.onResume();
     }
 }
