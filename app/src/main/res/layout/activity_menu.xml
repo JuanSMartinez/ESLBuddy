@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:padding="@dimen/box_inset_layout_padding"
+    android:id="@+id/menuActivity"
     tools:context=".MenuActivity"
     tools:deviceIds="wear">
 
