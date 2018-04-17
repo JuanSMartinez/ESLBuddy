@@ -13,6 +13,8 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import Interfaces.HttpGetListener;
+
 public class HttpQuizManager {
 
     //URL for posting quizzes
@@ -42,7 +44,7 @@ public class HttpQuizManager {
         try {
             Log.d("HttpManager", "Creating request");
             JSONObject obj = new JSONObject();
-            obj.put("buddy", buddyName);
+            obj.put("user", buddyName);
             obj.put("quiz", quiz);
             JsonObjectRequest request = new JsonObjectRequest(POST_URL, obj, new Response.Listener<JSONObject>() {
                 @Override
@@ -65,15 +67,14 @@ public class HttpQuizManager {
         }
     }
 
-    public void getAQuiz(String buddyName){
+    public void getAQuiz(String buddyName, final HttpGetListener listener){
         Log.d("HttpManager", "Creating request");
-
         StringRequest request = new StringRequest(GET_URL + "?user=" + buddyName, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d("HttpManager", "Response!");
                 Log.d("HttpManager", "Response Obj: " + response);
-
+                listener.processStringGetResponse(response);
             }
         }, new Response.ErrorListener() {
             @Override

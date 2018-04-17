@@ -106,7 +106,8 @@ public class QuizActivity extends WearableActivity {
     @Override
     protected void onDestroy() {
 
-        speechRecognizer.destroy();
+        if(speechRecognizer != null)
+            speechRecognizer.destroy();
         speechRecognizer = null;
 
         super.onDestroy();

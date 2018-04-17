@@ -24,7 +24,7 @@
             android:layout_below="@+id/imageView2"
             android:layout_centerHorizontal="true"
             android:text="@string/saved_label"
-            android:textColor="@color/grey" />
+            android:textColor="@color/white" />
 
         <ImageView
             android:id="@+id/imageView2"

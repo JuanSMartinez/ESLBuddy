@@ -27,7 +27,7 @@
             android:layout_alignParentEnd="true"
             android:text="@string/record_label"
             android:textAlignment="center"
-            android:textColor="@color/grey"
+            android:textColor="@color/white"
             android:textSize="15sp" />
 
         <ImageButton
