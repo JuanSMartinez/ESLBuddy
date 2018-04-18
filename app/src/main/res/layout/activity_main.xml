@@ -23,7 +23,7 @@
             android:layout_below="@+id/recordButton"
             android:text="@string/record_label"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/grey"
             android:textSize="15sp" />
 
         <ImageButton
