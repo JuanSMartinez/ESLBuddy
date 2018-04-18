@@ -70,6 +70,7 @@ public class MainActivity extends WearableActivity implements HttpGetListener{
             public void onClick(View v) {
 
                 Intent intent = new Intent(getApplicationContext(), RecordingActivity.class);
+                intent.putExtra(RecordingActivity.RECORDING_TYPE, RecordingActivity.RECORDING_LOCAL);
                 startActivity(intent);
 
 

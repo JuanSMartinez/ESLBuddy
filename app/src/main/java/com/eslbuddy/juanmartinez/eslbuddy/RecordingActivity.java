@@ -28,6 +28,11 @@ import backend.YandexAPIManager;
 
 public class RecordingActivity extends WearableActivity {
 
+    //Types of recording
+    public final static String RECORDING_TYPE = "Type";
+    public final static int RECORDING_LOCAL = 101;
+    public final static int RECORDING_QUIZ_BUDDY = 202;
+
     //Request queue for HTTP requests
     private RequestQueue queue;
 
@@ -40,6 +45,9 @@ public class RecordingActivity extends WearableActivity {
     //result of recognition
     private String recognitionResult;
 
+    //Type of recording
+    private int type;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +55,11 @@ public class RecordingActivity extends WearableActivity {
 
         resultsView = findViewById(R.id.partialRecordedTextView);
 
-        //Set HTTP request queue fro translations
+        //Set HTTP request queue for translations
         queue = Volley.newRequestQueue(this);
+
+        //Get type
+        type = getIntent().getIntExtra(RECORDING_TYPE,RECORDING_LOCAL);
 
         // Enables Always-on
         setAmbientEnabled();
@@ -147,7 +158,11 @@ public class RecordingActivity extends WearableActivity {
      * Start the recorded text activity
      */
     private void startRecordedTextActivity(String recordedText, String translation){
-        Intent intent = new Intent(getApplicationContext(), RecordedTextActivity.class);
+        Intent intent;
+        if(type == RECORDING_LOCAL)
+            intent = new Intent(getApplicationContext(), RecordedTextActivity.class);
+        else
+            intent = new Intent(getApplicationContext(), RecordedQuizActivity.class);
         intent.putExtra(YandexAPIManager.RECORDED_TEXT, recordedText);
         intent.putExtra(YandexAPIManager.TRANSLATED_TEXT, translation);
 

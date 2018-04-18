@@ -80,7 +80,10 @@
             android:label="@string/title_activity_name_settings" />
         <activity
             android:name=".ShareToUserActivity"
-            android:label="@string/title_activity_share_to_user"></activity>
+            android:label="@string/title_activity_share_to_user" />
+        <activity
+            android:name=".RecordedQuizActivity"
+            android:label="@string/title_activity_recorded_quiz"></activity>
     </application>
 
 </manifest>
