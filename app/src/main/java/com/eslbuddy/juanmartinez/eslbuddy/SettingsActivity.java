@@ -28,7 +28,7 @@ public class SettingsActivity extends WearableActivity implements CircularViewCl
         mWearableRecyclerView = findViewById(R.id.settingsActivityLayout);
         mWearableRecyclerView.setEdgeItemsCenteringEnabled(true);
 
-        String[] data = {"Language", "TTS", "Delete", "Name"};
+        String[] data = {"Language", "TTS", "Delete Data", "Name"};
         CustomListAdapter adapter = new CustomListAdapter(data, this);
         mWearableRecyclerView.setAdapter(adapter);
 
@@ -57,9 +57,9 @@ public class SettingsActivity extends WearableActivity implements CircularViewCl
             Intent intent = new Intent(getApplicationContext(), NameSettingsActivity.class);
             startActivity(intent);
         }
-        else if(textInView.equals("Delete")){
-            CRUDHelper.deleteAllRecordings(getApplicationContext());
-            Toast.makeText(getApplicationContext(), "Deleted all data", Toast.LENGTH_SHORT).show();
+        else if(textInView.equals("Delete Data")){
+            Intent intent = new Intent(getApplicationContext(), DeleteDataActivity.class);
+            startActivity(intent);
         }
     }
 }

@@ -7,4 +7,5 @@
     <string name="stop_button_desc">Stop Button</string>
     <string name="name_label">User Name:</string>
     <string name="share_label">Share to:</string>
+    <string name="delete_label">Do you want to delete all the recordings?</string>
 </resources>

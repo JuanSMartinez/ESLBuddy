@@ -22,6 +22,7 @@
     <string name="title_activity_name_settings">NameSettingsActivity</string>
     <string name="title_activity_share_to_user">ShareToUserActivity</string>
     <string name="title_activity_recorded_quiz">RecordedQuizActivity</string>
+    <string name="title_activity_delete_data">DeleteDataActivity</string>
 
 
 </resources>
