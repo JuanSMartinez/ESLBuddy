@@ -24,6 +24,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:background="@color/complicationDrawable_backgroundColor"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:scaleType="fitCenter"
             android:src="@drawable/red_square" />
 
@@ -46,7 +47,11 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/textView"
             android:gravity="center"
+<<<<<<< Updated upstream
             android:textColor="@color/white"
+=======
+            android:textColor="@color/grey"
+>>>>>>> Stashed changes
             android:textSize="18sp" />
 
 

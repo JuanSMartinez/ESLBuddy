@@ -10,7 +10,20 @@
     tools:context=".MenuActivity"
     tools:deviceIds="wear">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <ImageButton
+            android:id="@+id/arrowUpButton"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/complicationDrawable_backgroundColor"
+            android:scaleType="fitCenter"
+            android:src="@drawable/arrow_up" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,10 +32,24 @@
         app:boxedEdges="all">
 
         <ImageButton
-            android:id="@+id/reviewButton"
+            android:id="@+id/settings"
             android:layout_width="65dp"
             android:layout_height="65dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
             android:background="@drawable/generic_confirmation"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            android:scaleType="fitCenter"
+            android:src="@drawable/settings" />
+
+        <ImageButton
+            android:id="@+id/reviewButton"
+            android:layout_width="65dp"
+            android:layout_height="70dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/generic_confirmation"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:scaleType="fitCenter"
             android:src="@drawable/review" />
 
@@ -33,6 +60,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:background="@drawable/generic_confirmation"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:scaleType="fitCenter"
             android:src="@drawable/quiz" />
 
@@ -43,17 +71,8 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
             android:background="@drawable/generic_confirmation"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:scaleType="fitCenter"
             android:src="@drawable/quiz_to_buddy" />
-
-        <ImageButton
-            android:id="@+id/settings"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:background="@drawable/generic_confirmation"
-            android:scaleType="fitCenter"
-            android:src="@drawable/settings" />
     </RelativeLayout>
 </android.support.wear.widget.BoxInsetLayout>

@@ -11,18 +11,35 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="@dimen/inner_frame_layout_padding"
         app:boxedEdges="all">
 
-        <TextView
-            android:id="@+id/displayText"
+        <ScrollView
+            android:id="@+id/scrollView2"
             android:layout_width="match_parent"
+<<<<<<< Updated upstream
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textAlignment="center"
             android:textSize="28sp"
             android:text="" />
+=======
+            android:layout_height="75dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
+
+            <TextView
+                android:id="@+id/displayText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollHorizontally="false"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/dark_blue"
+                android:textSize="24sp" />
+        </ScrollView>
+>>>>>>> Stashed changes
 
         <ImageButton
             android:id="@+id/shareButton"
@@ -31,16 +48,23 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:background="@color/complicationDrawable_backgroundColor"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:scaleType="fitCenter"
             android:src="@drawable/share_icon" />
 
         <Switch
             android:id="@+id/switchTextReviewed"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+<<<<<<< Updated upstream
             android:textColor="@color/white"
             android:text="" />
+=======
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            android:text=""
+            android:textColor="@color/grey" />
+>>>>>>> Stashed changes
 
     </RelativeLayout>
 </android.support.wear.widget.BoxInsetLayout>
