@@ -5,4 +5,6 @@
     <string name="saved_label">Saved</string>
     <string name="tts_label">Text to Speech</string>
     <string name="stop_button_desc">Stop Button</string>
+    <string name="name_label">User Name:</string>
+    <string name="share_label">Share to:</string>
 </resources>

@@ -22,9 +22,9 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:checked="true"
-            android:textSize="18sp"
+            android:textSize="24sp"
             android:text="@string/tts_label"
-            android:textColor="@color/dark_blue" />
+            android:textColor="@color/blue" />
 
     </RelativeLayout>
 </android.support.wear.widget.BoxInsetLayout>

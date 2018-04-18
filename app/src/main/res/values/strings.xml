@@ -19,5 +19,8 @@
     <string name="title_activity_menu_words">MenuWordsActivity</string>
     <string name="title_activity_quiz">QuizActivity</string>
     <string name="title_activity_correct_response">CorrectResponseActivity</string>
+    <string name="title_activity_name_settings">NameSettingsActivity</string>
+    <string name="title_activity_share_to_user">ShareToUserActivity</string>
+
 
 </resources>

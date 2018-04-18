@@ -1,9 +1,12 @@
 package com.eslbuddy.juanmartinez.eslbuddy;
 
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.wearable.activity.WearableActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -63,6 +66,19 @@ public class ReviewRecordingActivity extends WearableActivity {
                 }
             }
         });
+
+
+        ImageButton shareButton = findViewById(R.id.shareButton);
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String quiz = recordedText + "&" + translation;
+                Intent intent = new Intent(getApplicationContext(), ShareToUserActivity.class);
+                intent.putExtra(ShareToUserActivity.QUIZ_TO_SHARE, quiz);
+                startActivity(intent);
+            }
+        });
+
         // Enables Always-on
         setAmbientEnabled();
 

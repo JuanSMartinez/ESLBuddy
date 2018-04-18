@@ -9,6 +9,8 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.wear.widget.BoxInsetLayout;
@@ -21,30 +23,32 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import Interfaces.HttpGetListener;
 import backend.CRUDHelper;
+import backend.HttpQuizManager;
 import backend.P2PReceiver;
 import backend.Recording;
 import backend.TTSSpeaker;
+import backend.UserProfile;
 
-public class MainActivity extends WearableActivity{
+public class MainActivity extends WearableActivity implements HttpGetListener{
 
     //Recording permission code
     public final static int SPEECH_RECORDING_PERMISSION = 5000;
     public final static int INTERNET_PERMISSION = 12;
-    public final static int COARSE_LOCATION_PERMISSION = 13;
-    public final static int ACCESS_WIFI_STATE = 14;
-    public final static int CHANGE_WIFI_STATE = 15;
+
+    //Server error codes
+    public final static String FETCHED = "FETCHED";
+    public final static String NO_QUIZ = "NO_QUIZ";
 
     //Swipe threshold
     public final static int SWIPE_THRESHOLD = 100;
 
-    //Intent filter for P2P connections
-    private final IntentFilter intentFilter = new IntentFilter();
+    //seconds to wait between subsequent GET requests
+    public final static int TIMEOUT = 5000;
 
-    //Wifip2p objects
-    private P2PReceiver receiver;
-    private WifiP2pManager mManager;
-    private WifiP2pManager.Channel mChannel;
+    //Handler
+    private Handler handler = new Handler();
 
 
     //coordinates to detect swipe
@@ -100,27 +104,36 @@ public class MainActivity extends WearableActivity{
         //Initialize tts
         TTSSpeaker.getInstance(getApplicationContext());
 
-        //P2P service
-        setP2PService();
+        //Set runner
+        handler.postDelayed(new Runnable(){
+            public void run(){
+                //do something
+                fetchQuiz();
+                handler.postDelayed(this, TIMEOUT);
+            }
+        }, TIMEOUT);
 
         // Enables Always-on
         setAmbientEnabled();
 
     }
 
+    private void fetchQuiz() {
+        HttpQuizManager manager = HttpQuizManager.getInstance(getApplicationContext());
+        manager.getAQuiz(UserProfile.getInstance().getName(), this);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
-        receiver = new P2PReceiver(this, mChannel, mManager);
-        registerReceiver(receiver, intentFilter);
 
     }
 
     @Override
     protected void onPause() {
+
         super.onPause();
 
-        unregisterReceiver(receiver);
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -175,25 +188,6 @@ public class MainActivity extends WearableActivity{
 
     }
 
-    private void setP2PService(){
-        // Indicates a change in the Wi-Fi P2P status.
-        intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
-
-        // Indicates a change in the list of available peers.
-        intentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION);
-
-        // Indicates the state of Wi-Fi P2P connectivity has changed.
-        intentFilter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
-
-        // Indicates this device's details have changed.
-        intentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
-
-        mManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
-        mChannel = mManager.initialize(this, getMainLooper(), null);
-
-    }
-
-
     private boolean checkSharingPermissions(){
         if (!(ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED)) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO},
@@ -205,21 +199,7 @@ public class MainActivity extends WearableActivity{
                     INTERNET_PERMISSION);
             return false;
         }
-        else if(!(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                    COARSE_LOCATION_PERMISSION);
-            return false;
-        }
-        else if(!(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_WIFI_STATE) == PackageManager.PERMISSION_GRANTED)) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_WIFI_STATE},
-                    ACCESS_WIFI_STATE);
-            return false;
-        }
-        else if(!(ContextCompat.checkSelfPermission(this, Manifest.permission.CHANGE_WIFI_STATE) == PackageManager.PERMISSION_GRANTED)) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CHANGE_WIFI_STATE},
-                    CHANGE_WIFI_STATE);
-            return false;
-        }
+
         else
             return true;
     }
@@ -229,5 +209,20 @@ public class MainActivity extends WearableActivity{
             ;
     }
 
-
+    @Override
+    public void processStringGetResponse(String response) {
+        if(!response.equals(FETCHED) && !response.equals(NO_QUIZ)) {
+            Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+            long[] vibrationPattern = {0, 500, 50, 300};
+            //-1 - don't repeat
+            final int indexInPatternToRepeat = -1;
+            vibrator.vibrate(vibrationPattern, indexInPatternToRepeat);
+            ArrayList<Recording> singleArray = new ArrayList<>();
+            Recording temporal = new Recording("Temporal", response);
+            singleArray.add(temporal);
+            Intent intent = new Intent(this, QuizActivity.class);
+            intent.putExtra(ListOfWordsActivity.LIST, singleArray);
+            startActivity(intent);
+        }
+    }
 }

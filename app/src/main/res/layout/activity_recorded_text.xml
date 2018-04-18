@@ -31,7 +31,7 @@
                 android:layout_alignParentTop="true"
                 android:textSize="18sp"
                 android:gravity="center"
-                android:textColor="@color/grey" />
+                android:textColor="@color/white" />
         </ScrollView>
 
         <ScrollView
@@ -49,7 +49,7 @@
                 android:layout_alignParentTop="true"
                 android:textSize="18sp"
                 android:gravity="center"
-                android:textColor="@color/grey" />
+                android:textColor="@color/white" />
         </ScrollView>
 
 
