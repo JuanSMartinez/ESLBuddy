@@ -51,9 +51,16 @@ public class MenuActivity extends WearableActivity {
     }
 
     private void setQuizToBuddyButtonListener() {
-        Intent intent = new Intent(getApplicationContext(), RecordingActivity.class);
-        intent.putExtra(RecordingActivity.RECORDING_TYPE, RecordingActivity.RECORDING_QUIZ_BUDDY);
-        startActivity(intent);
+        ImageButton button = findViewById(R.id.quizBuddy);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), RecordingActivity.class);
+                intent.putExtra(RecordingActivity.RECORDING_TYPE, RecordingActivity.RECORDING_QUIZ_BUDDY);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void setQuizButtonListener() {
