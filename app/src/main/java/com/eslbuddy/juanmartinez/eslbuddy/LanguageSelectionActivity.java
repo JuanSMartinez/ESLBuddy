@@ -32,7 +32,7 @@ public class LanguageSelectionActivity extends WearableActivity implements Circu
         CustomListAdapter adapter = new CustomListAdapter(languages.toArray(new String[0]), this);
         mWearableRecyclerView.setAdapter(adapter);
 
-        mWearableRecyclerView.setCircularScrollingGestureEnabled(true);
+        //mWearableRecyclerView.setCircularScrollingGestureEnabled(true);
         mWearableRecyclerView.setBezelFraction(0.5f);
         mWearableRecyclerView.setScrollDegreesPerScreen(90);
 

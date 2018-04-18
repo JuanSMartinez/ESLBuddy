@@ -72,6 +72,29 @@ public class MainActivity extends WearableActivity{
             }
         });
 
+        ImageButton arrowRightButton = findViewById(R.id.arrowRightButton);
+        arrowRightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            ArrayList<Recording> recent = CRUDHelper.getRecentRecordings(getApplicationContext());
+
+            Intent intent = new Intent(getApplicationContext(), ListOfWordsActivity.class);
+            intent.putExtra(ListOfWordsActivity.LIST, recent);
+            startActivity(intent);
+
+            }
+        });
+
+        ImageButton arrowDownButton = findViewById(R.id.arrowDownButton);
+        arrowDownButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+            startActivity(intent);
+
+            }
+        });
+
         setTouchEventListener();
 
         //Initialize tts

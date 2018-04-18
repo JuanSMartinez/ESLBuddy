@@ -46,7 +46,7 @@ public class ListOfWordsActivity extends WearableActivity implements CircularVie
         CustomListAdapter adapter = new CustomListAdapter(data, this);
         mWearableRecyclerView.setAdapter(adapter);
 
-        mWearableRecyclerView.setCircularScrollingGestureEnabled(true);
+        //mWearableRecyclerView.setCircularScrollingGestureEnabled(true);
         mWearableRecyclerView.setBezelFraction(0.5f);
         mWearableRecyclerView.setScrollDegreesPerScreen(90);
 

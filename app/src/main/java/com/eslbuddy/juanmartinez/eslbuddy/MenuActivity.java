@@ -32,6 +32,7 @@ public class MenuActivity extends WearableActivity {
         setQuizButtonListener();
         setQuizToBuddyButtonListener();
         setSettingsListener();
+        arrowUpButtonListener();
 
         setTouchEventListener();
         // Enables Always-on
@@ -75,6 +76,17 @@ public class MenuActivity extends WearableActivity {
                 intent.putExtra(MenuWordsActivity.TYPE, MenuWordsActivity.REVIEW);
 
                 startActivity(intent);
+            }
+        });
+
+    }
+
+    private void arrowUpButtonListener() {
+        ImageButton button = findViewById(R.id.arrowUpButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finishAfterTransition();
             }
         });
 

@@ -69,7 +69,7 @@ public class MenuWordsActivity extends WearableActivity implements CircularViewC
         adapter = new CustomListAdapter(data, this);
         mWearableRecyclerView.setAdapter(adapter);
 
-        mWearableRecyclerView.setCircularScrollingGestureEnabled(true);
+        //mWearableRecyclerView.setCircularScrollingGestureEnabled(true);
         mWearableRecyclerView.setBezelFraction(0.5f);
         mWearableRecyclerView.setScrollDegreesPerScreen(90);
 
